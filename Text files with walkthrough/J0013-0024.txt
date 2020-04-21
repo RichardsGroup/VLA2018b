@@ -1,0 +1,122 @@
+00 13 42.45, -00 24 12.7
+
+
+J0013-0024: ALL WITHOUT COMPRESSION FIX
+
+split(vis = '18B-229.sb35978226.eb36039349.58470.10486790509.ms', outputvis = 'SDSSJ0013-0024_split.ms', field = '3')
+
+flagdata(vis = 'SDSSJ0013-0024_split.ms', spw = '30')
+
+
+Create dirty image:
+tclean(vis = 'SDSSJ0013-0024_split.ms', imagename = 'SDSSJ0013-0024_split.dirty', imsize = [1024])
+
+
+threshold = '0.066mJy'
+
+
+tclean(vis = 'SDSSJ0013-0024_split.ms', imagename = 'SDSSJ0013-0024_split.imsize1024.niter5K.thresh6p6uJy', imsize = [1024], niter = 5000, threshold = '0.066mJy')
+
+
+Rms = 12uJy
+
+
+tclean(vis = 'SDSSJ0013-0024_split.ms', imagename = 'SDSSJ0013-0024_split.imsize1024.niter5K.thresh15uJy', imsize = [1024], niter = 10000, threshold = '0.15mJy')
+
+Possible Detection -- double lobe?
+
+Peak Flux = 22.7uJy/beam
+
+Int. Flux = 36.3uJy
+
+
+
+--------With Compression Fix--------
+
+
+Casa did not recognize keyword arguments given for hifv_syspower -- try w/o 
+
+hifv_syspower(usemedian=False, antexclude='')  --->  hifv_syspower()
+
+*inserted after priorcals
+
+
+After entering syspower stage -- IndexError: list index out of range
+
+
+
+--8/13--
+
+tclean(vis = 'SDSSJ0013-0024_split.ms', imagename = 'SDSSJ0013-0024_split.imsize1024.48uJy', imsize = [1024], niter = 10000, threshold = '48uJy')
+
+
+
+
+--3/26 1st Image to do with compression (aside from test on 0157-0938)--
+
+importasdm(asdm='18B-229.sb35978226.eb36039349.58470.10486790509',vis='18B-229.sb35978226.eb36039349.58470.10486790509_forCompression.ms',ocorr_mode='co',process_flags=True, applyflags=True)
+
+
+
+
+---Co op compression and self-cal---
+
+
+split(vis = '18B-229.sb35978226.eb36039349.58470.10486790509.ms', outputvis = 'J0013-0024_compressionSplit.ms', spw = '0~1, 16~31', datacolumn = 'data')
+
+delmod('J0013-0024_compressionSplit.ms')
+
+execfile('casa_pipescript.py') #in new compression directory
+
+
+
+split(vis = 'J0013-0024_compressionSplit.ms',  outputvis = '1_J0013-0024_selfcal.ms', field = '3')
+
+clean(vis = '1_J0013-0024_selfcal.ms', imsize = [1280], imagename = '1_J0013-0024_selfcal.ms.shallowbright_clean', interactive=True)
+
+gaincal(vis = '1_J0013-0024_selfcal.ms', caltable = '0013-0024_solint1p5min_r1', calmode = 'p', refant = 'ea02', solint = '1.5min', minsnr = 3.0)
+
+plotcal(caltable='0013-0024_solint1p5min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J0013-0024_selfcal.ms', gaintable=['0013-0024_solint1p5min_r1'], calwt=False)
+
+
+
+
+gaincal(vis = '1_J0013-0024_selfcal.ms', caltable = '0013-0024_solint1min_r2', gaintable = ['0013-0024_solint1p5min_r1'], calmode = 'p', refant = 'ea02', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='0013-0024_solint1min_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J0013-0024_selfcal.ms', gaintable=['0013-0024_solint1p5min_r1', '0013-0024_solint1min_r2'], calwt=False)
+
+
+
+
+gaincal(vis = '1_J0013-0024_selfcal.ms', caltable = '0013-0024_solint40s_r3', gaintable = ['0013-0024_solint1p5min_r1', '0013-0024_solint1min_r2'], calmode = 'p', refant = 'ea02', solint = '40s', minsnr = 3.0)
+
+plotcal(caltable='0013-0024_solint40s_r3',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J0013-0024_selfcal.ms', gaintable=['0013-0024_solint1p5min_r1', '0013-0024_solint1min_r2', '0013-0024_solint40s_r3'], calwt=False)
+
+
+
+gaincal(vis = '1_J0013-0024_selfcal.ms', caltable = '0013-0024_solint30s_r4', gaintable = ['0013-0024_solint1p5min_r1', '0013-0024_solint1min_r2', '0013-0024_solint40s_r3'], calmode = 'p', refant = 'ea02', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='0013-0024_solint30s_r4',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J0013-0024_selfcal.ms', gaintable=['0013-0024_solint1p5min_r1', '0013-0024_solint1min_r2', '0013-0024_solint40s_r3', '0013-0024_solint30s_r4'], calwt=False)
+
+
+
+
+gaincal(vis = '1_J0013-0024_selfcal.ms', caltable = '0013-0024_solint30s_r5ap', gaintable = ['0013-0024_solint1p5min_r1', '0013-0024_solint1min_r2', '0013-0024_solint40s_r3', '0013-0024_solint30s_r4'], calmode = 'ap', refant = 'ea02', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='0013-0024_solint30s_r5ap',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J0013-0024_selfcal.ms', gaintable=['0013-0024_solint1p5min_r1', '0013-0024_solint1min_r2', '0013-0024_solint40s_r3', '0013-0024_solint30s_r4', '0013-0024_solint30s_r5ap'], calwt=False)
+
+
+
+delmod('1_J0013-0024_selfcal.ms')
+
+tclean(vis = '1_J0013-0024_selfcal.ms', imsize = [1280], pblimit=-0.01, imagename = '1_J0013-0024_selfcal.ms.25uJy', threshold = '25uJy', niter=100000)

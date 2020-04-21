@@ -1,0 +1,7 @@
+split(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.compressionSplit.ms', outputvis = 'SDSSJ1144+0202_compression.ms', field = '2')
+
+
+delmod('SDSSJ1144+0202_compression.ms')
+
+tclean(vis = 'SDSSJ1144+0202_compression.ms', imagename = 'SDSSJ1144+0202_compression.ms.35uJy', imsize = [1280], pblimit = -0.01, threshold = '35uJy', niter = 100000)
+

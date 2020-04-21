@@ -1,0 +1,34 @@
+flagdata(vis = '18B-229.sb35831880.eb35863825.58439.272124814815.ms', spw = '>28')
+
+statwt(vis = '18B-229.sb35831880.eb35863825.58439.272124814815.ms', spw = '>28')
+**was already done -- but do this for statwt now
+
+split(vis = '18B-229.sb35831880.eb35863825.58439.272124814815.ms', outputvis = 'SDSSJ0146-0915_split.ms', field = '2')
+
+---
+
+Dirty:
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.dirtysz640', imsize = [640])
+
+Dirty rms ~ 5.5uJy
+
+
+Cleaned:
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.sz640.thresh', imsize = [640], niter = 10000, threshold = '0.105mJy')
+
+
+
+rms = 3.4uJy -- Npts = 7917 
+Dirty Rms = 4.9
+
+
+--8/13--
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.sz640.45uJy', imsize = [640], niter = 10000, threshold = '45uJy')
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.sz640.36uJy', imsize = [640], niter = 10000, threshold = '36uJy')
+
+
+
+
+

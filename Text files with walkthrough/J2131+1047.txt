@@ -1,0 +1,68 @@
+J2131+1047
+
+split(vis = '18B-229.sb35865385.eb36095920.58490.02454413194.ms', outputvis = 'SDSSJ2131+1047_split.ms', field = '2')
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.dirty', imsize = [640])
+
+
+------
+
+
+Rms = 4.5u --> threshold = 13.5uJy = .135mJy
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.imsz640.thresh13p5uJy', imsize = [640], niter = 10000, threshold = '0.135mJy')
+
+^^ very good stopping criterion. (But not very clean...try w/o threshold
+
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.imsz640.nothresh.niter5K', imsize = [640], niter = 5000)
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.imsz640.nothresh.niter8K', imsize = [640], niter = 8000)
+
+
+*Rms = 3.9
+
+
+--8/8--
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.dirty.sz840', imsize = [840])
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.sz840.threshp09mJy', imsize = [840], threshold ='0.09mJy', niter = 30000)
+
+Rms=23u
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.sz1280.threshp05mJy', imsize = [1280], threshold ='0.05mJy', niter = 30000)
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.sz1512', imsize = [1512], pblimit = -0.01)
+
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imagename = 'SDSSJ2131+1047_split.ms.sz840.75uJy', imsize = [840], threshold ='75uJy', niter = 30000)
+
+
+
+--8/21--
+
+
+tclean(vis = 'SDSSJ2131+1047_split.ms', imsize = [1512], pblimit=-0.01, imagename = 'SDSSJ2131+1047_split.ms.auto_thresh.thresh40uJy.1512p', threshold = '40uJy', niter = 15000, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+
+
+
+
+
+
+--With Self Cal from Amy--
+
+split(vis = '18B-229.sb35865385.eb36095920.58490.02454413194.ms', outputvis = '1_2131+1047_selfcal.ms', field = '2')
+
+clean(vis = '1_2131+1047_selfcal.ms', imagename = '1_2131+1047_selfcal.ms.shallowbright', imsize = [1280], interactive = True)
+
+gaincal(vis='1_2131+1047_selfcal.ms',caltable='2131+1047_solint_3min_amp_r1', calmode='ap',solint='3min', refant='ea13',minsnr=3.0)
+
+
+plotcal(caltable='2131+1047_solint_3min_amp_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='1_2131+1047_selfcal.ms', gaintable=['2131+1047_solint_3min_amp_r1'], calwt=False)
+
+delmod(vis = '1_2131+1047_selfcal.ms')
+
+tclean(vis = '1_2131+1047_selfcal.ms', imagename = '1_2131+1047_selfcal.ms.selfcal.32uJy',imsize = [1280], niter = 100000, threshold = '32uJy')

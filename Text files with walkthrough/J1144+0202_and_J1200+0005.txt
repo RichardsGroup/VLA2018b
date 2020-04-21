@@ -1,0 +1,196 @@
+11 44 08.56 +02 02 21.2  -- field 2
+12 00 15.35 +00 05 53.2  -- field 3
+
+29:40
+26 antennas
+
+
+Pipeline:
+
+Stage 5:
+confident that this needs the compression fix that Amy referred to
+
+Stage 6:
+Test delay - ea10, outliers on ea27
+
+
+Stage 7:
+Many antennas flagged at spw17/18 as bad deformatters
+
+
+Stage 14 (finalcals):
+Test Delays;
+-still outliers on ea27 BP 3GHz-4
+
+
+Finalampefreqcal;
+-Lots of deviation spread throughout antennas
+-ea15 has large deviations from normalized value 1.0 for all spws - shown in time too...definitely needs to be flagged
+-ea01 from 2-3GHz (spw 16-23)
+-spws30-31: ea02, 04, 06(30), 08(31), 11, 13, 20, 21(30)
+-spws17-18: ea12-14, 22-24, 28
+
+
+Stage 18:
+-spws 30,31 appear to be a problem in phase, amp vs freq plots
+-some elevations present in spw19 but not too significant 
+
+
+
+flagdata(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', antenna = '0', spw = '16~23')
+
+flagdata(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', antenna = '13')
+
+flagdata(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', antenna = '10~12, 19~21, 25', spw = '17~18')
+
+flagdata(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', spw = '30', antenna = '5, 18')
+
+flagdata(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', spw = '31', antenna = '6')
+
+flagdata(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', spw = '30~31', antenna = '1, 3, 9, 11, 17')
+
+
+
+**On 7/15, NO index.html files are opening -- unable to view pipeline results
+
+---1144+0202---
+
+11 44 08.56, +02 02 21.2
+
+*Without compression*
+
+split(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', outputvis = 'SDSSJ1144+0202_split.ms', field = '2')
+
+tclean(vis = 'SDSSJ1144+0202_split.ms', imagename = 'SDSSJ1144+0202_split.ms.dirty.sz1280', imsize = [1280])
+
+
+NOW FLAGGED - STILL NO COMPRESSION:
+
+
+split(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', outputvis = 'SDSSJ1144+0202_split_withFlag.ms', field = '2')
+
+tclean(vis = 'SDSSJ1144+0202_split_withFlag.ms', imagename = 'SDSSJ1144+0202_split_withFlag.ms.dirty.sz1280', imsize = [1280])
+
+
+Dirty RMS = 2.1uJy
+
+
+
+Clean:
+tclean(vis = 'SDSSJ1144+0202_split_withFlag.ms', imagename = 'SDSSJ1144+0202_split_withFlag.ms.sz1280.thresh21uJy', imsize = [1280], threshold = '0.21mJy', niter = 10000)
+
+-Possible detection -- there is an optical source at faint radio source to the right and left of the target
+
+-Completed in 46 iterations
+
+Clean RMS = 2.05uJy
+
+--8/8--
+
+tclean(vis = 'SDSSJ1144+0202_split_withFlag.ms', imagename = 'SDSSJ1144+0202_split_withFlag.ms.sz1280.threshp06mJy', imsize = [1280], threshold = '0.06mJy', niter = 10000)
+
+tclean(vis = 'SDSSJ1144+0202_split_withFlag.ms', imagename = 'SDSSJ1144+0202_split_withFlag.ms.sz1280.36uJy', imsize = [1280], threshold = '0.036mJy', niter = 10000)
+
+
+
+---1200+0005---
+
+12 00 15.35 +00 05 53.2
+
+*Without compression*
+
+split(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', outputvis = 'SDSSJ1200+0005_split.ms', field = '3')
+
+
+tclean(vis = 'SDSSJ1200+0005_split.ms', imagename = 'SDSSJ1200+0005_split.ms.dirty.sz1280', imsize = [1280])
+
+tclean(vis = 'SDSSJ1200+0005_split.ms', imagename = 'SDSSJ1200+0005_split.ms.dirty.sz640', imsize = [640])
+
+
+
+NOW FLAGGED - STILL NO COMPRESSION:
+
+
+split(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', outputvis = 'SDSSJ1200+0005_split_withFlag.ms', field = '3')
+
+Dirty:
+
+tclean(vis = 'SDSSJ1200+0005_split_withFlag.ms', imagename = 'SDSSJ1200+0005_split_withFlag.ms.dirty.sz640', imsize = [640])
+
+Dirty RMS = 5.15uJy
+
+
+Clean:
+tclean(vis = 'SDSSJ1200+0005_split_withFlag.ms', imagename = 'SDSSJ1200+0005_split_withFlag.ms.sz640.thresh21uJy', imsize = [640], threshold = '0.21mJy', niter = 10000)
+
+
+-Finished in 87 iterations
+
+Clean RMS = 4uJy
+
+--8/8--
+
+tclean(vis = 'SDSSJ1200+0005_split_withFlag.ms', imagename = 'SDSSJ1200+0005_split_withFlag.ms.sz640.threshp105mJy', imsize = [640], threshold = '0.105mJy', niter = 10000)
+
+rms=15u
+pf=.046m
+if=.035m
+
+
+tclean(vis = 'SDSSJ1200+0005_split_withFlag.ms', imagename = 'SDSSJ1200+0005_split_withFlag.ms.sz640.30uJy', imsize = [640], threshold = '30uJy', niter = 30000)
+
+
+
+
+---Compression Co op---
+
+split(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.ms', outputvis = '18B-229.sb35914853.eb36298200.58527.38346831019.compressionSplit.ms', spw = '0~1, 16~31', datacolumn = 'data')
+
+execfile('casa_pipescript.py')
+
+
+
+--And Self Cal--
+
+split(vis = '18B-229.sb35914853.eb36298200.58527.38346831019.compressionSplit.ms', outputvis = 'SDSSJ1200+0005_compression.ms', field = '3')
+
+delmod('SDSSJ1200+0005_compression.ms')
+
+clean(vis = 'SDSSJ1200+0005_compression.ms', imagename = 'SDSSJ1200+0005_compression.ms.shallowbright_clean', imsize = [5120], interactive=True)
+
+gaincal(vis = 'SDSSJ1200+0005_compression.ms', caltable = '1200+0005_solint1p5min_r1', calmode = 'p', refant = 'ea24', solint = '1.5min', minsnr = 3.0)
+
+plotcal(caltable='1200+0005_solint1p5min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1200+0005_compression.ms', gaintable=['1200+0005_solint1p5min_r1'], calwt=False)
+
+
+
+
+gaincal(vis = 'SDSSJ1200+0005_compression.ms', caltable = '1200+0005_solint1p5min_r2', gaintable = ['1200+0005_solint1p5min_r1'], calmode = 'p', refant = 'ea24', solint = '1.5min', minsnr = 3.0)
+
+plotcal(caltable='1200+0005_solint1p5min_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1200+0005_compression.ms', gaintable=['1200+0005_solint1p5min_r1', '1200+0005_solint1p5min_r2'], calwt=False)
+
+
+
+gaincal(vis = 'SDSSJ1200+0005_compression.ms', caltable = '1200+0005_solint1p5min_r3ap', gaintable = ['1200+0005_solint1p5min_r1', '1200+0005_solint1p5min_r2'], calmode = 'ap', refant = 'ea24', solint = '1.5min', minsnr = 3.0)
+
+plotcal(caltable='1200+0005_solint1p5min_r3ap',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1200+0005_compression.ms', gaintable=['1200+0005_solint1p5min_r1', '1200+0005_solint1p5min_r2', '1200+0005_solint1p5min_r3ap'], calwt=False)
+
+
+
+--Spectral Index--
+
+delmod('SDSSJ1200+0005_compression.ms')
+
+tclean(vis = 'SDSSJ1200+0005_compression.ms', imagename = 'SDSSJ1200+0005_compression.ms.60uJy', threshold = '60uJy', niter = 100000, pblimit=-0.01, imsize=[5120])
+
+
+
+delmod('SDSSJ1200+0005_compression.ms')
+
+tclean(vis = 'SDSSJ1200+0005_compression.ms', imagename = 'SDSSJ1200+0005_compression.ms.70uJy.inband1', threshold = '70uJy', niter = 100000, pblimit=-0.01, imsize=[5120], spw='2~9') #reformatted spws

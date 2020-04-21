@@ -1,0 +1,352 @@
+selfJ1509+0759
+
+split(vis = '18B-229.sb35897152.eb36143922.58505.63336309028.ms',  outputvis = 'SDSSJ1509+0759_split.ms', field = '2')
+
+Dirty image:
+tclean(vis = 'SDSSJ1509+0759_split.ms', imagename = 'SDSSJ1509+0759_split.ms.dirtysz320', imsize = [1280])
+
+
+
+
+Quiet rms = 4uJy ---> threshold = '0.12mJy'
+
+
+
+tclean(vis = 'SDSSJ1509+0759_split.ms', imagename = 'SDSSJ1509+0759_split.ms.imsize1280.threshp12mJy.niter3K', imsize = [1280], threshold = '0.12mJy', niter = 3000)
+
+tclean(vis = 'SDSSJ1509+0759_split.ms', imagename = 'SDSSJ1509+0759_split.ms.imsize1280.threshp12mJy.niter6K', imsize = [1280], threshold = '0.12mJy', niter = 6000). ***goes to shit
+
+tclean(vis = 'SDSSJ1509+0759_split.ms', imagename = 'SDSSJ1509+0759_split.ms.imsize1280.threshp12mJy.niter4p5K', imsize = [1280], threshold = '0.12mJy', niter = 4500)
+
+
+Image goes crazy at ~5-6K+ iterations of deconv
+
+
+--------
+
+
+tclean(vis = 'SDSSJ1509+0759_split.ms', imagename = 'SDSSJ1509+0759_split.ms.imsize1280.thresh9uJy', imsize = [1280], threshold = '0.09mJy', niter = 10000). xx
+
+Try .31mJy
+
+
+tclean(vis = 'SDSSJ1509+0759_split.ms', imagename = 'SDSSJ1509+0759_split.ms.imsize1280.thresh31uJy', imsize = [1280], threshold = '0.31mJy', niter = 10000)
+
+
+** rms = 6.1
+
+--8/8--
+
+External source could be affecting rms -- try new dirty w/ pblimt<0
+
+tclean(vis = 'SDSSJ1509+0759_split.ms', imagename = 'SDSSJ1509+0759_split.ms.dirtysz2100', imsize = [2100], pblimit=-0.01)
+
+tclean(vis = 'SDSSJ1509+0759_split.ms', imagename = 'SDSSJ1509+0759_split.ms.sz2100.threshp06mJy', imsize = [2100], pblimit=-0.01, niter=10000, threshold='0.06mJy')
+
+
+Rms: self-cal
+avgRms: .16mJy
+pf_source: .013Jy/b
+
+
+--8/20--
+
+tclean(vis = 'SDSSJ1509+0759_split.ms', imsize = [2100], pblimit=-0.01, imagename = 'SDSSJ1509+0759_split.ms.auto_thresh.thresh33uJy.2100p', threshold = '40uJy', niter = 15000, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+
+
+
+
+--With Self cal from Amy--
+
+split(vis = '18B-229.sb35897152.eb36143922.58505.63336309028.ms',  outputvis = '1_J1509+0759_selfcal.ms', field = '2')
+
+clean(vis = '1_J1509+0759_selfcal.ms', imagename = '1_J1509+0759_selfcal.ms.shallowbright', imsize = [2100], interactive = True)
+
+gaincal(vis = '1_J1509+0759_selfcal.ms', caltable = '1509+0759_solint_3min_r1', calmode = 'p', refant = 'ea02', solint = '3min', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint_3min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='1_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint_3min_r1'], calwt=False)
+
+delmod(vis = '1_J1509+0759_selfcal.ms')
+
+tclean(vis = '1_J1509+0759_selfcal.ms', imsize = [2100], pblimit=-0.01, imagename = '1_J1509+0759_selfcal.ms.150uJy', threshold = '150uJy', niter = 100000)
+
+
+
+-Self Cal 2-
+
+split(vis = '1_J1509+0759_selfcal.ms',  outputvis = '2_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '2_J1509+0759_selfcal.ms', imagename = '2_J1509+0759_selfcal.ms.shallowbright', imsize = [2100], interactive = True)
+
+gaincal(vis = '2_J1509+0759_selfcal.ms', caltable = '1509+0759_solint_1min_r2', calmode = 'p', refant = 'ea02', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint_1min_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='2_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint_2min_r2'], calwt=False)
+
+delmod(vis = '2_J1509+0759_selfcal.ms')
+
+tclean(vis = '1_J1509+0759_selfcal.ms', imsize = [2100], pblimit=-0.01, imagename = '1_J1509+0759_selfcal.ms.150uJy', threshold = '150uJy', niter = 100000)
+
+
+
+
+-Self Cal 3ap-
+
+split(vis = '2_J1509+0759_selfcal.ms',  outputvis = '3ap_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '3ap_J1509+0759_selfcal.ms', imagename = '3ap_J1509+0759_selfcal.ms.shallowbright', imsize = [2100], interactive = True)
+
+gaincal(vis = '3ap_J1509+0759_selfcal.ms', caltable = '1509+0759_solint_1min_thisamp_r3', calmode = 'ap', refant = 'ea02', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint_1min_thisamp_r3',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='3ap_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint_1min_thisamp_r3'], calwt=False)
+
+delmod(vis = '3ap_J1509+0759_selfcal.ms')
+
+tclean(vis = '3ap_J1509+0759_selfcal.ms', imsize = [2100], pblimit=-0.01, imagename = '3ap_J1509+0759_selfcal.ms.uniform.180uJy', threshold = '180uJy', weighting='uniform', niter = 100000)
+
+#110 worked = 30, 80thresh diverges
+
+
+
+
+-Self Cal 3-
+
+split(vis = '2_J1509+0759_selfcal.ms',  outputvis = '3_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '3_J1509+0759_selfcal.ms', imagename = '3_J1509+0759_selfcal.ms.shallowbright', imsize = [2100], interactive = True)
+
+gaincal(vis = '3_J1509+0759_selfcal.ms', caltable = '1509+0759_solint_1p5min_r3', calmode = 'p', refant = 'ea02', solint = '1.5min', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint_1p5min_r3',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='3_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint_1p5min_r3'], calwt=False)
+
+delmod(vis = '3_J1509+0759_selfcal.ms')
+
+tclean(vis = '3_J1509+0759_selfcal.ms', imsize = [2100], pblimit=-0.01, imagename = '3_J1509+0759_selfcal.ms.180uJy', threshold = '180uJy', weighting='uniform', niter = 100000)
+
+
+
+
+-Self Cal 4-
+
+split(vis = '3_J1509+0759_selfcal.ms',  outputvis = '4_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '4_J1509+0759_selfcal.ms', imagename = '4_J1509+0759_selfcal.ms.shallowbright', imsize = [2400], interactive = True)
+
+gaincal(vis = '4_J1509+0759_selfcal.ms', caltable = '1509+0759_solint_1min_r4', calmode = 'p', refant = 'ea02', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint_1min_r4',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='4_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint_1min_r4'], calwt=False)
+
+delmod(vis = '4_J1509+0759_selfcal.ms')
+
+tclean(vis = '3_J1509+0759_selfcal.ms', imsize = [2100], pblimit=-0.01, imagename = '3_J1509+0759_selfcal.ms.180uJy', threshold = '180uJy', weighting='uniform', niter = 100000)
+
+
+
+
+-Self Cal 5-
+
+split(vis = '4_J1509+0759_selfcal.ms',  outputvis = '5_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '5_J1509+0759_selfcal.ms', imagename = '5_J1509+0759_selfcal.ms.shallowbright', imsize = [2400], interactive = True)
+
+gaincal(vis = '5_J1509+0759_selfcal.ms', caltable = '1509+0759_solint_1min_amp_r5', calmode = 'ap', refant = 'ea02', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint_1min_amp_r5',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='5_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint_1min_amp_r5'], calwt=False)
+
+delmod(vis = '5_J1509+0759_selfcal.ms')
+
+tclean(vis = '5_J1509+0759_selfcal.ms', imsize = [2400], pblimit=-0.01, imagename = '5_J1509+0759_selfcal.ms.105uJy', threshold = '105uJy', niter = 100000)
+
+
+
+--Co op 4/9 Compression--
+
+split(vis = '18B-229.sb35897152.eb36143922.58505.63336309028.ms', outputvis = 'J1509+0759_compressionSplit.ms', spw = '0~1, 16~31', datacolumn = 'data')
+
+Done
+
+Now redo cleaning
+
+--With Self cal from Amy--
+
+split(vis = 'J1509+0759_compressionSplit.ms',  outputvis = '1_J1509+0759_selfcal.ms', field = '2')
+
+*Changed to `clean` after errors below
+clean(vis = '1_J1509+0759_selfcal.ms', imsize = [2400], imagename = '1_J1509+0759_selfcal.ms.shallowbright_clean', interactive=True)
+
+*Dirty image looks slightly better with compression fix applied than without
+*Now try doing self-cal and compare the final results
+
+*Try interactive clean with tclean--I don't think interactive was working/available when I was first doing these during the Summer (2019)
+*Update: It works, you just need to run tclean with a small number of iterations in order to get the interactive gui to pop up
+
+
+tclean(vis = '1_J1509+0759_selfcal.ms', imagename = '1_J1509+0759_selfcal.ms.shallowbright', imsize = [2400], niter=10, pblimit=-0.01, interactive = True)
+
+gaincal(vis = '1_J1509+0759_selfcal.ms', caltable = '1509+0759_solint30s_r1', calmode = 'p', refant = 'ea02', solint = '30s', minsnr = 3.0)
+
+*30s is much too short
+
+gaincal(vis = '1_J1509+0759_selfcal.ms', caltable = '1509+0759_solint3min_r1', calmode = 'p', refant = 'ea02', solint = '3min', minsnr = 3.0)
+
+*3min not good either
+
+gaincal(vis = '1_J1509+0759_selfcal.ms', caltable = '1509+0759_solint3min_r1', calmode = 'p', refant = 'ea02', solint = '3min', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint30s_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint3min_r1'], calwt=False)
+
+delmod(vis = '1_J1509+0759_selfcal.ms')
+
+#Check what new dirty image looks like -- any changes?
+tclean(vis = '1_J1509+0759_selfcal.ms', imsize = [2400], pblimit=-0.01, imagename = '1_J1509+0759_selfcal.ms.Dirty')
+
+#Glitched with imsize<2400 -- probably messed up mask used in previous self-cal
+tclean(vis = '1_J1509+0759_selfcal.ms', imsize = [2400], pblimit=-0.01, imagename = '1_J1509+0759_selfcal.ms.150uJy.fix', threshold = '150uJy', niter = 100000)
+
+#Same glitch happening with imsize=2400 ... I think this may be because I passed 10 #iterations of tclean in the first step of self-cal 
+
+tclean(vis = '1_J1509+0759_selfcal.ms', imsize = [2400], pblimit=-0.01, imagename = '1_J1509+0759_selfcal.ms.250uJy.fix', threshold = '250uJy', niter = 100000)
+
+#Use clean for self-cal mask stage ... results in the image we want!
+
+
+---Now split out 'corrected' data column and do another round of self-cal---
+
+delmod('1_J1509+0759_selfcal.ms')
+
+split(vis = '1_J1509+0759_selfcal.ms', outputvis = '2_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '2_J1509+0759_selfcal.ms', imsize = [2400], imagename = '2_J1509+0759_selfcal.ms.shallowbright_clean', interactive=True)
+
+#2min gaincal looks really good! Try going even lower
+#30s still too erratic -- although might be suitable for next round
+gaincal(vis = '2_J1509+0759_selfcal.ms', caltable = '1509+0759_solint1min_r2', calmode = 'p', refant = 'ea02', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint1min_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='2_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint1min_r2'], calwt=False)
+
+delmod('2_J1509+0759_selfcal.ms')
+
+#Do another clean!
+tclean(vis = '2_J1509+0759_selfcal.ms', imsize = [2400], pblimit=-0.01, imagename = '2_J1509+0759_selfcal.ms.150uJy.fix', threshold = '150uJy', niter = 100000)
+
+#Reached cleaning threshold, but still not where we want to be.
+
+
+---Fixed Self-cal round 3---
+
+delmod('2_J1509+0759_selfcal.ms')
+
+split(vis = '2_J1509+0759_selfcal.ms', outputvis = '3_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '3_J1509+0759_selfcal.ms', imsize = [2400], imagename = '3_J1509+0759_selfcal.ms.shallowbright_clean', interactive=True)
+
+gaincal(vis = '3_J1509+0759_selfcal.ms', caltable = '1509+0759_solint45s_r3', calmode = 'p', refant = 'ea02', solint = '45s', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint45s_r3',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='3_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint45s_r3'], calwt=False)
+
+delmod('3_J1509+0759_selfcal.ms')
+
+#Do another clean!
+tclean(vis = '3_J1509+0759_selfcal.ms', imsize = [2400], pblimit=-0.01, imagename = '3_J1509+0759_selfcal.ms.150uJy.fix', threshold = '150uJy', niter = 100000)
+
+#See if we can lower the imsize now since we sort of 'cleaned' the outer sources already 
+#Answer: We can't!
+tclean(vis = '3_J1509+0759_selfcal.ms', imsize = [1280], imagename = '3_J1509+0759_selfcal.ms.150uJy.1280p.fix', threshold = '150uJy', niter = 100000)
+
+
+---Fixed Self-cal round 4---
+
+delmod('3_J1509+0759_selfcal.ms')
+
+split(vis = '3_J1509+0759_selfcal.ms', outputvis = '4_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '4_J1509+0759_selfcal.ms', imsize = [2400], imagename = '4_J1509+0759_selfcal.ms.shallowbright_clean', interactive=True)
+
+#20s a bit too low
+gaincal(vis = '4_J1509+0759_selfcal.ms', caltable = '1509+0759_solint30s_r4', calmode = 'p', refant = 'ea02', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint30s_r4',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='4_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint30s_r4'], calwt=False)
+
+
+---Fixed Self-cal round 5---
+
+delmod('4_J1509+0759_selfcal.ms')
+
+split(vis = '4_J1509+0759_selfcal.ms', outputvis = '5_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '5_J1509+0759_selfcal.ms', imsize = [2400], imagename = '5_J1509+0759_selfcal.ms.shallowbright_clean', interactive=True)
+
+#20s a bit too low still
+gaincal(vis = '5_J1509+0759_selfcal.ms', caltable = '1509+0759_solint30s_r5', calmode = 'p', refant = 'ea02', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint30s_r5',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='5_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint30s_r5'], calwt=False)
+
+
+
+---Fixed Self Cal round 6ap---
+
+delmod('5_J1509+0759_selfcal.ms')
+
+split(vis = '5_J1509+0759_selfcal.ms', outputvis = '6ap_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '6ap_J1509+0759_selfcal.ms', imsize = [2400], imagename = '6ap_J1509+0759_selfcal.ms.shallowbright_clean', interactive=True)
+
+#20s a bit too low still
+gaincal(vis = '6ap_J1509+0759_selfcal.ms', caltable = '1509+0759_solint30s_r6ap', calmode = 'ap', refant = 'ea02', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint30s_r6ap',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='6ap_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint30s_r6ap'], calwt=False)
+
+delmod('6ap_J1509+0759_selfcal.ms')
+
+tclean(vis = '6ap_J1509+0759_selfcal.ms', imsize = [2400], pblimit=-0.01, imagename = '6ap_J1509+0759_selfcal.ms.50uJy.fix', threshold = '50uJy', niter = 100000)
+
+#A *much* better image at 150 uJy!
+#Not quite able to clean to 50uJy, but even that reached ~12uJy RMS
+#There's a small blip of noise increasing RMS to ~18-20uJy for thresh=70uJy
+
+
+---Self Cal Round 7ap (last)---
+
+*This is somewhat of a test object for our other targets, so test out how an additional round of *amplitude* self-cal will help at all
+
+delmod('6ap_J1509+0759_selfcal.ms')
+
+split(vis = '6ap_J1509+0759_selfcal.ms', outputvis = '7ap_J1509+0759_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '7ap_J1509+0759_selfcal.ms', imsize = [2400], imagename = '7ap_J1509+0759_selfcal.ms.shallowbright_clean', interactive=True)
+
+gaincal(vis = '7ap_J1509+0759_selfcal.ms', caltable = '1509+0759_solint20s_r7ap', calmode = 'ap', refant = 'ea02', solint = '20s', minsnr = 3.0)
+
+plotcal(caltable='1509+0759_solint20s_r7ap',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-80,80])
+
+applycal(vis='7ap_J1509+0759_selfcal.ms', gaintable=['1509+0759_solint20s_r7ap'], calwt=False)
+
+delmod('7ap_J1509+0759_selfcal.ms')
+
+tclean(vis = '7ap_J1509+0759_selfcal.ms', imsize = [2400], pblimit=-0.01, imagename = '7ap_J1509+0759_selfcal.ms.15uJy.fix', threshold = '15uJy', niter = 300000)
+
+
+FINAL RMS ~ 9.3uJy

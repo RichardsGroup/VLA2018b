@@ -1,0 +1,87 @@
+25 antennas
+29:35
+
+11 30 47.12, +19 03 25.7
+
+
+spw18 spikes for all antennas 
+
+Large final delays at spw30 for ea08, 16
+
+flagdata(vis = '18B-229.sb35964721.eb36111148.58496.59125900463.ms', spw = '18')
+
+flagdata(vis = '18B-229.sb35964721.eb36111148.58496.59125900463.ms', spw = '30', antenna = '6, 14')
+
+statwt('18B-229.sb35964721.eb36111148.58496.59125900463.ms')
+
+split(vis = '18B-229.sb35964721.eb36111148.58496.59125900463.ms', outputvis = 'SDSSJ1130+1903_split.ms', field = '2')
+
+
+
+Dirty:
+tclean(vis = 'SDSSJ1130+1903_split.ms', imagename = 'SDSSJ1130+1903_split.ms.sz1280.dirty', imsize = [1280])
+
+Dirty:
+tclean(vis = 'SDSSJ1130+1903_split.ms', imagename = 'SDSSJ1130+1903_split.ms.sz720.dirty', imsize = [720])
+
+Dirty RMS = 14.8uJy
+
+
+Clean:
+tclean(vis = 'SDSSJ1130+1903_split.ms', imagename = 'SDSSJ1130+1903_split.ms.sz720.thresh36uJy', imsize = [720], threshold = '0.36mJy', niter = 10000)
+
+Clean RMS = 3.1uJy
+
+
+--8/8--
+
+tclean(vis = 'SDSSJ1130+1903_split.ms', imagename = 'SDSSJ1130+1903_split.ms.sz720.threshp18mJy', imsize = [720], threshold = '0.18mJy', niter = 10000)
+
+tclean(vis = 'SDSSJ1130+1903_split.ms', imagename = 'SDSSJ1130+1903_split.ms.sz720.60uJy', imsize = [720], threshold = '60uJy', niter = 10000)
+
+
+
+
+--8/20--
+
+tclean(vis = 'SDSSJ1130+1903_split.ms', imsize = [1280], pblimit=-0.01, imagename = 'SDSSJ1130+1903_split.ms.auto_thresh.thresh15uJy.1280p', threshold = '15uJy', niter = 15000, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+
+
+
+
+
+--With Self Cal from Amy--
+
+split(vis = '18B-229.sb35964721.eb36111148.58496.59125900463.ms',  outputvis = '1_J1130+1903_selfcal.ms', field = '2')
+
+clean(vis = '1_J1130+1903_selfcal.ms', imagename = '1_J1130+1903_selfcal.ms.shallowbright', imsize = [1280], interactive = True)
+
+gaincal(vis = '1_J1130+1903_selfcal.ms', caltable = '1130+1903_solint_30sec_r1', calmode = 'p', refant = 'ea13', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='1130+1903_solint_30sec_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='1_J1130+1903_selfcal.ms', gaintable=['1130+1903_solint_1min_r1'], calwt=False)
+
+delmod(vis = '1_J1130+1903_selfcal.ms')
+
+tclean(vis = '1_J1130+1903_selfcal.ms', imsize = [1280], pblimit=-0.01, imagename = '1_J1130+1903_selfcal.ms.60uJy', threshold = '60uJy', niter = 100000)
+
+
+
+
+
+-Self Cal 2ap-
+
+split(vis = '1_J1130+1903_selfcal.ms',  outputvis = '2_J1130+1903_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '2_J1130+1903_selfcal.ms', imagename = '2_J1130+1903_selfcal.ms.shallowbright', imsize = [1280], interactive = True)
+
+gaincal(vis = '2_J1130+1903_selfcal.ms', caltable = '1130+1903_solint_30sec_amp_r2', calmode = 'ap', refant = 'ea13', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='1130+1903_solint_30sec_amp_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='2_J1130+1903_selfcal.ms', gaintable=['1130+1903_solint_30sec_amp_r2'], calwt=False)
+
+delmod(vis = '2_J1130+1903_selfcal.ms')
+
+tclean(vis = '2_J1130+1903_selfcal.ms', imsize = [1280], pblimit=-0.01, imagename = '2_J1130+1903_selfcal.ms.18uJy', threshold = '18uJy', niter = 100000)
