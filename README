@@ -1,0 +1,5 @@
+Run the following shell command in this directory to produce a text file with our data formatted for latex
+
+awk -F "," -f quasar_table.awk quasar_table_paper.csv > quasar_table_formatted.txt
+
+Note: you'll need to add the double backslash \\ after the header still - sorry!
