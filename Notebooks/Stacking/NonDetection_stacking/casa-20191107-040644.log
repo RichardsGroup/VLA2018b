@@ -1,0 +1,236 @@
+2019-11-07 04:06:48	INFO	::casa	
+2019-11-07 04:06:48	INFO	::casa	Checking telemetry submission interval
+2019-11-07 04:06:48	INFO	::casa	Telemetry submit interval not reached. Not submitting data.
+2019-11-07 04:06:48	INFO	::casa	Next telemetry data submission in: 5 days, 16:54:25.458770
+2019-11-07 04:06:48	INFO	::casa	CASA Version 5.4.2-5  
+2019-11-07 04:07:12	SEVERE		Exception Reported: pixels is not understood, try using an array at File: ../../tools/images/image_cmpt.cc, line: 2248
+2019-11-07 04:09:20	SEVERE		Exception Reported: pixels is not understood, try using an array at File: ../../tools/images/image_cmpt.cc, line: 2248
+2019-11-07 04:10:20	INFO	ImageFactory::createImage	Created Paged image 'stacked_image' of shape [61, 61, 1, 1] with float valued pixels.
+2019-11-07 04:10:39	INFO	viewer::::	
+2019-11-07 04:10:39	INFO	viewer::::+	##########################################
+2019-11-07 04:10:39	INFO	viewer::::+	##### Begin Task: viewer             #####
+2019-11-07 04:10:39	INFO	viewer::::	viewer(infile="stacked_image",displaytype="raster",channel=0,zoom=1,outfile="",
+2019-11-07 04:10:39	INFO	viewer::::+	        outscale=1.0,outdpi=300,outformat="jpg",outlandscape=False,gui=True)
+2019-11-07 04:10:41	SEVERE	viewer::::	An error occurred running task viewer.
+2019-11-07 04:11:37	INFO	viewer::::	
+2019-11-07 04:11:37	INFO	viewer::::+	##########################################
+2019-11-07 04:11:37	INFO	viewer::::+	##### Begin Task: viewer             #####
+2019-11-07 04:11:37	INFO	viewer::::	viewer(infile="",displaytype="raster",channel=0,zoom=1,outfile="",
+2019-11-07 04:11:37	INFO	viewer::::+	        outscale=1.0,outdpi=300,outformat="jpg",outlandscape=False,gui=True)
+2019-11-07 04:11:37	INFO	viewer::::	##### End Task: viewer               #####
+2019-11-07 04:11:37	INFO	viewer::::+	##########################################
+2019-11-07 04:15:15	WARN	image::open (file ../../tools/images/image_cmpt.cc, line 4145)	Another image is already open, closing first
+2019-11-07 04:22:04	INFO	viewer::::	
+2019-11-07 04:22:04	INFO	viewer::::+	##########################################
+2019-11-07 04:22:04	INFO	viewer::::+	##### Begin Task: viewer             #####
+2019-11-07 04:22:04	INFO	viewer::::	viewer(infile="stacked_image",displaytype="raster",channel=0,zoom=1,outfile="",
+2019-11-07 04:22:04	INFO	viewer::::+	        outscale=1.0,outdpi=300,outformat="jpg",outlandscape=False,gui=True)
+2019-11-07 04:22:04	INFO	viewer::::	##### End Task: viewer               #####
+2019-11-07 04:22:04	INFO	viewer::::+	##########################################
+2019-11-07 04:23:09	INFO	ImageFitter::_finishConstruction	No estimates file specified, so will attempt to find and fit one gaussian.
+2019-11-07 04:23:09	INFO	ImageRegion::fromRecord	Selected bounding box : 
+2019-11-07 04:23:09	INFO	ImageRegion::fromRecord+	    [24, 23, 0, 0] to [37, 37, 0, 0]  (00:00:24.000, -00.07.00.000, I, 1.415e+09Hz to 23:59:32.000, +00.07.00.000, I, 1.415e+09Hz)
+2019-11-07 04:23:09	WARN	ImageFitter::_finishConstruction	Unrecognized intensity unit . Will assume Jy/pixel
+2019-11-07 04:23:09	INFO	ImageFitter::fit	noise FWHM not specified and image has no beam, so uncertainties will be computed assuming pixel noise is uncorrelated.
+2019-11-07 04:23:09	INFO	ImageFitter::fit	****** Fit performed at Thu Nov 7 04:23:09 2019******
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	Input parameters ---
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	       --- imagename:           /Users/trevormccaffrey/Desktop/VLA_stuff/arrays_of_images/stacked_image
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	       --- region:              
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	       --- channel:             0
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	       --- stokes:              I
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	       --- mask:                
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	       --- include pixel range: []
+2019-11-07 04:23:09	INFO	ImageFitter::fit+	       --- exclude pixel range: []
+2019-11-07 04:23:09	INFO	ImageFitter::_fitsky	Fitter was able to find a solution in 24 iterations.
+2019-11-07 04:23:09	WARN	SkyCompRep::convertToJy	Cannot convert units of brightness to Jy - will assume Jy
+2019-11-07 04:23:09	WARN	SkyCompRep::peakToIntegralFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:23:09	INFO	ImageRegion::fromRecord	Selected bounding box : 
+2019-11-07 04:23:09	INFO	ImageRegion::fromRecord+	    [2, 3] to [9, 11]  (00:00:16.000, -00.04.00.000 to 23:59:48.000, +00.04.00.000)
+2019-11-07 04:23:09	INFO	ImageMaskAttacher::makeMask	Created mask `mask0'
+2019-11-07 04:23:09	WARN	SkyCompRep::integralToPeakFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop	*** Details of fit for channel number 0
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	Number of pixels used in fit: 210
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	Input and residual image statistics (to be used as a rough guide only as to goodness of fit)
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- Standard deviation of input image: 4.72702e-06 Jy
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- Standard deviation of residual image: 1.77349e-06 Jy
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- RMS of input image: 4.8634e-06 Jy
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- RMS of residual image: 1.76926e-06 Jy
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	Zero level offset fit: -4.2014e-06 +/- 3.95394e-07 Jy/pixel
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	Fit on stacked_image component 0
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	Position ---
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- ra:    00:00:02.17 +/- 0.32 s (4.86 arcsec along great circle)
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- dec: +000.00.24.38 +/- 5.39 arcsec
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- ra:  29.457 +/- 0.081 pixels
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- dec: 30.406 +/- 0.090 pixels
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	Image component size ---
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- major axis FWHM:     8.82 +/- 0.22 arcmin
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- minor axis FWHM:     7.39 +/- 0.18 arcmin
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- position angle: 26.9 +/- 5.6 deg
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	Flux ---
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- Integrated:   1.228 +/- 0.030 mJy
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- Peak:         16.62 +/- 0.41 uJy/pixel
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	       --- Polarization: I
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	Spectrum ---
+2019-11-07 04:23:09	INFO	ImageFitter::_fitLoop+	      --- frequency:        1.415000 GHz (21.18675 cm)
+2019-11-07 04:23:09	WARN	SkyCompRep::integralToPeakFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:23:09	INFO	Region::getLayerCenter	Centering results:
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- Ra_J2000: 00:00:02.171
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- Dec_J2000:    0.00.24.38
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- W-Majorax: 529.224 arcsec
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- W-Minorax: 443.343 arcsec
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- W-Posang: 26.9103 deg
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- Xcen: 29.4573 pix
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- Ycen: 30.4064 pix
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- I-Majorax: 8.8204 pix
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- I-Minorax: 7.38905 pix
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- I-Posang: 116.91 deg
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- Radeg: 360.009 deg
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- Decdeg: 0.00677259 deg
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- IntegrFlux: 0.00122756
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- PeakFlux: 1.66227e-05
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- Skylevel: -4.2014e-06
+2019-11-07 04:23:09	INFO	Region::getLayerCenter		--- Converged: YES
+2019-11-07 04:24:16	INFO	ImageFitter::_finishConstruction	No estimates file specified, so will attempt to find and fit one gaussian.
+2019-11-07 04:24:16	INFO	ImageRegion::fromRecord	Selected bounding box : 
+2019-11-07 04:24:16	INFO	ImageRegion::fromRecord+	    [25, 25, 0, 0] to [34, 34, 0, 0]  (00:00:20.000, -00.05.00.000, I, 1.415e+09Hz to 23:59:44.000, +00.04.00.000, I, 1.415e+09Hz)
+2019-11-07 04:24:16	WARN	ImageFitter::_finishConstruction	Unrecognized intensity unit . Will assume Jy/pixel
+2019-11-07 04:24:16	INFO	ImageFitter::fit	noise FWHM not specified and image has no beam, so uncertainties will be computed assuming pixel noise is uncorrelated.
+2019-11-07 04:24:16	INFO	ImageFitter::fit	****** Fit performed at Thu Nov 7 04:24:16 2019******
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	Input parameters ---
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	       --- imagename:           /Users/trevormccaffrey/Desktop/VLA_stuff/arrays_of_images/stacked_image
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	       --- region:              
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	       --- channel:             0
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	       --- stokes:              I
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	       --- mask:                
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	       --- include pixel range: []
+2019-11-07 04:24:16	INFO	ImageFitter::fit+	       --- exclude pixel range: []
+2019-11-07 04:24:16	INFO	ImageFitter::_fitsky	Fitter was able to find a solution in 16 iterations.
+2019-11-07 04:24:16	WARN	SkyCompRep::convertToJy	Cannot convert units of brightness to Jy - will assume Jy
+2019-11-07 04:24:16	WARN	SkyCompRep::peakToIntegralFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:24:16	INFO	ImageRegion::fromRecord	Selected bounding box : 
+2019-11-07 04:24:16	INFO	ImageRegion::fromRecord+	    [2, 2] to [8, 8]  (00:00:12.000, -00.03.00.000 to 23:59:48.000, +00.03.00.000)
+2019-11-07 04:24:16	INFO	ImageMaskAttacher::makeMask	Created mask `mask0'
+2019-11-07 04:24:16	WARN	SkyCompRep::integralToPeakFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop	*** Details of fit for channel number 0
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	Number of pixels used in fit: 100
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	Input and residual image statistics (to be used as a rough guide only as to goodness of fit)
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- Standard deviation of input image: 4.26917e-06 Jy
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- Standard deviation of residual image: 1.59485e-06 Jy
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- RMS of input image: 6.22214e-06 Jy
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- RMS of residual image: 1.58686e-06 Jy
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	Zero level offset fit: -1.90768e-06 +/- 8.39684e-07 Jy/pixel
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	Fit on stacked_image component 0
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	Position ---
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- ra:    00:00:01.22 +/- 0.31 s (4.59 arcsec along great circle)
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- dec: +000.00.13.32 +/- 5.30 arcsec
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- ra:  29.694 +/- 0.077 pixels
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- dec: 30.222 +/- 0.088 pixels
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	Image component size ---
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- major axis FWHM:     7.26 +/- 0.21 arcmin
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- minor axis FWHM:     6.02 +/- 0.18 arcmin
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- position angle: 20.0 +/- 6.2 deg
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	Flux ---
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- Integrated:   765 +/- 22 uJy
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- Peak:         15.45 +/- 0.45 uJy/pixel
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	       --- Polarization: I
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	Spectrum ---
+2019-11-07 04:24:16	INFO	ImageFitter::_fitLoop+	      --- frequency:        1.415000 GHz (21.18675 cm)
+2019-11-07 04:24:16	WARN	SkyCompRep::integralToPeakFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:24:16	INFO	Region::getLayerCenter	Centering results:
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- Ra_J2000: 00:00:01.223
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- Dec_J2000:    0.00.13.32
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- W-Majorax: 435.788 arcsec
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- W-Minorax: 360.953 arcsec
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- W-Posang: 20.0258 deg
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- Xcen: 29.6943 pix
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- Ycen: 30.2219 pix
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- I-Majorax: 7.26313 pix
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- I-Minorax: 6.01589 pix
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- I-Posang: 110.026 deg
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- Radeg: 360.005 deg
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- Decdeg: 0.0036991 deg
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- IntegrFlux: 0.000764727
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- PeakFlux: 1.54461e-05
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- Skylevel: -1.90768e-06
+2019-11-07 04:24:16	INFO	Region::getLayerCenter		--- Converged: YES
+2019-11-07 04:25:57	INFO	ImageFitter::_finishConstruction	No estimates file specified, so will attempt to find and fit one gaussian.
+2019-11-07 04:25:57	INFO	ImageRegion::fromRecord	Selected bounding box : 
+2019-11-07 04:25:57	INFO	ImageRegion::fromRecord+	    [26, 25, 0, 0] to [34, 36, 0, 0]  (00:00:16.000, -00.05.00.000, I, 1.415e+09Hz to 23:59:44.000, +00.06.00.000, I, 1.415e+09Hz)
+2019-11-07 04:25:57	WARN	ImageFitter::_finishConstruction	Unrecognized intensity unit . Will assume Jy/pixel
+2019-11-07 04:25:57	INFO	ImageFitter::fit	noise FWHM not specified and image has no beam, so uncertainties will be computed assuming pixel noise is uncorrelated.
+2019-11-07 04:25:57	INFO	ImageFitter::fit	****** Fit performed at Thu Nov 7 04:25:57 2019******
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	Input parameters ---
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	       --- imagename:           /Users/trevormccaffrey/Desktop/VLA_stuff/arrays_of_images/stacked_image
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	       --- region:              
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	       --- channel:             0
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	       --- stokes:              I
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	       --- mask:                
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	       --- include pixel range: []
+2019-11-07 04:25:57	INFO	ImageFitter::fit+	       --- exclude pixel range: []
+2019-11-07 04:25:57	INFO	ImageFitter::_fitsky	Fitter was able to find a solution in 7 iterations.
+2019-11-07 04:25:57	WARN	SkyCompRep::convertToJy	Cannot convert units of brightness to Jy - will assume Jy
+2019-11-07 04:25:57	WARN	SkyCompRep::peakToIntegralFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:25:57	INFO	ImageRegion::fromRecord	Selected bounding box : 
+2019-11-07 04:25:57	INFO	ImageRegion::fromRecord+	    [0, 2] to [7, 9]  (00:00:16.000, -00.03.00.000 to 23:59:48.000, +00.04.00.000)
+2019-11-07 04:25:57	INFO	ImageMaskAttacher::makeMask	Created mask `mask0'
+2019-11-07 04:25:57	WARN	SkyCompRep::integralToPeakFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop	*** Details of fit for channel number 0
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	Number of pixels used in fit: 108
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	Input and residual image statistics (to be used as a rough guide only as to goodness of fit)
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- Standard deviation of input image: 4.35311e-06 Jy
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- Standard deviation of residual image: 1.53962e-06 Jy
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- RMS of input image: 6.00917e-06 Jy
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- RMS of residual image: 1.53247e-06 Jy
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	Zero level offset fit: -2.54114e-06 +/- 8.07967e-07 Jy/pixel
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	Fit on stacked_image component 0
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	Position ---
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- ra:    00:00:01.04 +/- 0.27 s (4.12 arcsec along great circle)
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- dec: +000.00.13.56 +/- 5.08 arcsec
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- ra:  29.740 +/- 0.069 pixels
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- dec: 30.226 +/- 0.085 pixels
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	Image component size ---
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- major axis FWHM:     7.69 +/- 0.20 arcmin
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- minor axis FWHM:     6.01 +/- 0.16 arcmin
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- position angle: 15.8 +/- 4.3 deg
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	Flux ---
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- Integrated:   843 +/- 22 uJy
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- Peak:         16.10 +/- 0.42 uJy/pixel
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	       --- Polarization: I
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	Spectrum ---
+2019-11-07 04:25:57	INFO	ImageFitter::_fitLoop+	      --- frequency:        1.415000 GHz (21.18675 cm)
+2019-11-07 04:25:57	WARN	SkyCompRep::integralToPeakFlux()	There are no image brightness units, assuming Jy/pixel
+2019-11-07 04:25:57	INFO	Region::getLayerCenter	Centering results:
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- Ra_J2000: 00:00:01.040
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- Dec_J2000:    0.00.13.56
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- W-Majorax: 461.621 arcsec
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- W-Minorax: 360.307 arcsec
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- W-Posang: 15.7912 deg
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- Xcen: 29.74 pix
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- Ycen: 30.226 pix
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- I-Majorax: 7.69368 pix
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- I-Minorax: 6.00512 pix
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- I-Posang: 105.791 deg
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- Radeg: 360.004 deg
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- Decdeg: 0.00376663 deg
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- IntegrFlux: 0.000842731
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- PeakFlux: 1.60979e-05
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- Skylevel: -2.54114e-06
+2019-11-07 04:25:57	INFO	Region::getLayerCenter		--- Converged: YES
