@@ -4,7 +4,7 @@ This repository serves as a database for all (primarily Trevor's) work done for 
 
 * ``Bokeh/`` contains notebooks to make all Bokeh plots made along the way: t-SNE2 space, CIV distance with images animated in
 * ``DriveImages/`` contains PNGs of all our VLA targets
-* **Update** ``FITS_Images/`` contains the final FITS images of all our VLA targets and a ``.tgz`` file with all images
+* ``FITS_Images/`` contains the final FITS images of all our VLA targets
 * ``ForcedPhotometryImages/`` contains example ``.jpg`` NVSS images from our forced photometry analysis.  Images are broken up into sources with luminosity above the FIRST detection limit and above where the AGN is expected to dominate radio (L1.4 > 10^24.45 W/Hz; Figure 2)
 * ``Notebooks/`` should contain all of the useful notebooks that went into the paper.  Although it's possible I forgot to transfer some important ones from my personal machine, so let me know if there's something you can't find.
     * ``CIVPlot/`` includes notebooks that make the CIV plot -- both new and old.  The final important one is ``CIVPlot_wLOFAR_final_finalCIVdist.ipynb``
