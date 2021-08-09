@@ -13,7 +13,7 @@ This repository serves as a database for all (primarily Trevor's) work done for 
     * ``TSNE/`` includes some interesting work on the t-SNE analysis of the experimental 6-component ICA on our parent sample of DR7 quasars -- the original "PGv2", deterministic t-SNE, 3-D t-SNE (and rotating it to maximize range in FIRST/CIV distance)
     * There are a few other self-explanatory standalone notebooks without a subdirectory.  Note that the ``MakeFigures_forPaper.ipynb`` is from the first submission
 * ``PaperFigures/`` contains all figures in the paper
-* ``Text\ Files\ with\ walkthrough/`` contains my personal notes for processing each image in CASA
+* ``Text_Files_with_walkthrough/`` contains my personal notes for processing each image in CASA
 * ``data/`` *should* contain all the data needed to run the notebooks in this repo, but let me know if something looks to be missing
     * ``CIV_RM_data/`` contains files needed for the CIV plot notebooks
     * ``MK2021/`` contains data from McCaffrey, Kimball et al. 2021: "Kpc-scale Radio Structure in z~0.25 Radio-Quiet QSOs"
