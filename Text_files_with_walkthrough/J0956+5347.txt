@@ -1,0 +1,180 @@
+25 antennas
+28:35
+
+09 56 48.48 +53 47 13.5
+
+Finalampgaincal:
+
+Spw18: ea03, 09, 11, 13, 14, 18, 20~25
+
+Ea15: larger problem in spw 24-31
+
+flagdata(vis = '18B-229.sb35974040.eb36109056.58493.30257681713.ms', spw = '18', antenna = '2, 7, 9, 11, 12, 16, 18~23')
+
+flagdata(vis = '18B-229.sb35974040.eb36109056.58493.30257681713.ms', spw = '24~31', antenna = '13')
+
+statwt(vis = '18B-229.sb35974040.eb36109056.58493.30257681713.ms', spw = '18, 24~31')
+
+split(vis = '18B-229.sb35974040.eb36109056.58493.30257681713.ms', outputvis = 'SDSSJ0956+5347_split.ms', field = '2')
+
+Dirty:
+
+tclean(vis = 'SDSSJ0956+5347_split.ms', imagename = 'SDSSJ0956+5347_split.ms.sz1280.dirty', imsize = [1280])
+
+---8/7 try with pblimit<0---
+
+tclean(vis = 'SDSSJ0956+5347_split.ms', imagename = 'SDSSJ0956+5347_split.ms.sz1280.withpblimit.dirty', imsize = [1280], pblimit=-0.01)
+
+tclean(vis = 'SDSSJ0956+5347_split.ms', imagename = 'SDSSJ0956+5347_split.ms.sz1512.withpblimit.dirty', imsize = [1512], pblimit=-0.01)
+
+plotms(vis='SDSSJ0956+5347_split.ms',ydatacolumn='corrected', xaxis='time',yaxis='amp')
+
+*For S/N ratio 1/3: solint=22.8min 
+
+gaincal(vis='SDSSJ0956+5347_split.ms',caltable='0956+5357_for_selfcal',
+        calmode='p',solint='22min',combine='scan',
+        refant='ea13',minsnr=3.0)
+
+plotcal(caltable='0956+5357_for_selfcal',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-50,50])
+
+--8/8--
+
+tclean(vis = 'SDSSJ0956+5347_split.ms', imagename = 'SDSSJ0956+5347_split.ms.sz1512.withpblimit.threshp06mJy', imsize = [1512], pblimit=-0.01, threshold = '0.06mJy', niter = 10000)
+
+
+
+
+--With Self Cal from Amy--
+
+split(vis = '18B-229.sb35974040.eb36109056.58493.30257681713.ms', outputvis = '1_0956+5347_selfcal.ms', field = '2')
+
+clean(vis = '1_0956+5347_selfcal.ms', imagename = '1_0956+5347_selfcal.ms.shallowbright', imsize = [1512], interactive = True)
+
+gaincal(vis='1_0956+5347_selfcal.ms',caltable='0956+5347_solint_4min_r1', calmode='p',solint='4min', refant='ea13',minsnr=3.0)
+
+
+plotcal(caltable='0956+5347_solint_4min_r1',xaxis='time',yaxis='phase',
+        iteration='antenna',subplot=331,plotrange=[0,0,-50,50])
+
+applycal(vis='1_0956+5347_selfcal.ms', gaintable=['0956+5347_solint_4min_r1'], calwt=False)
+
+delmod(vis = '1_0956+5347_selfcal.ms')
+
+tclean(vis = '1_0956+5347_selfcal.ms', imagename = '1_0956+5347_selfcal.ms.selfcal.30uJy',imsize = [1512], pblimit=-0.01, threshold = '30uJy', niter = 60000)
+
+
+
+-Self Cal 2-
+
+split(vis = '1_0956+5347_selfcal.ms', outputvis = '2_0956+5347_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '2_0956+5347_selfcal.ms', imagename = '2_0956+5347_selfcal.ms.shallowbright', imsize = [1512], interactive = True)
+
+gaincal(vis='2_0956+5347_selfcal.ms',caltable='0956+5347_solint_1min_r2', calmode='p',solint='1min', refant='ea13',minsnr=3.0)
+
+
+plotcal(caltable='0956+5347_solint_1min_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='2_0956+5347_selfcal.ms', gaintable=['0956+5347_solint_1min_r2'], calwt=False)
+
+delmod(vis = '2_0956+5347_selfcal.ms')
+
+tclean(vis = '2_0956+5347_selfcal.ms', imagename = '2_0956+5347_selfcal.ms.selfcal.30uJy',imsize = [1512], pblimit=-0.01, threshold = '30uJy', niter = 60000)
+
+
+
+
+-Self Cal 3-
+
+split(vis = '2_0956+5347_selfcal.ms', outputvis = '3_0956+5347_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '3_0956+5347_selfcal.ms', imagename = '3_0956+5347_selfcal.ms.shallowbright', imsize = [1512], interactive = True)
+
+gaincal(vis='3_0956+5347_selfcal.ms',caltable='0956+5347_solint_30sec_r3', calmode='p',solint='30s', refant='ea13',minsnr=3.0)
+
+
+plotcal(caltable='0956+5347_solint_30sec_r3',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='3_0956+5347_selfcal.ms', gaintable=['0956+5347_solint_30sec_r3'], calwt=False)
+
+delmod(vis = '3_0956+5347_selfcal.ms')
+
+tclean(vis = '_0956+5347_selfcal.ms', imagename = '2_0956+5347_selfcal.ms.selfcal.30uJy',imsize = [1512], pblimit=-0.01, threshold = '30uJy', niter = 60000)
+
+
+
+
+-Self Cal 4-
+
+split(vis = '3_0956+5347_selfcal.ms', outputvis = '4_0956+5347_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '4_0956+5347_selfcal.ms', imagename = '4_0956+5347_selfcal.ms.shallowbright', imsize = [1512], interactive = True)
+
+gaincal(vis='4_0956+5347_selfcal.ms',caltable='0956+5347_solint_20sec_r4', calmode='p',solint='20s', refant='ea13',minsnr=3.0)
+
+
+plotcal(caltable='0956+5347_solint_20sec_r4',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='4_0956+5347_selfcal.ms', gaintable=['0956+5347_solint_20sec_r4'], calwt=False)
+
+delmod(vis = '4_0956+5347_selfcal.ms')
+
+tclean(vis = '4_0956+5347_selfcal.ms', imagename = '4_0956+5347_selfcal.ms.selfcal.30uJy',imsize = [1512], pblimit=-0.01, threshold = '30uJy', niter = 60000)
+
+
+
+
+
+
+-Self Cal 5ap-
+
+split(vis = '4_0956+5347_selfcal.ms', outputvis = '5ap_0956+5347_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '5ap_0956+5347_selfcal.ms', imagename = '5ap_0956+5347_selfcal.ms.shallowbright', imsize = [1512], interactive = True)
+
+gaincal(vis='5ap_0956+5347_selfcal.ms',caltable='0956+5347_solint_20sec_amp_r5', calmode='ap',solint='20s', refant='ea13',minsnr=3.0)
+
+
+plotcal(caltable='0956+5347_solint_20sec_amp_r5',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='5ap_0956+5347_selfcal.ms', gaintable=['0956+5347_solint_20sec_amp_r5'], calwt=False)
+
+delmod(vis = '5ap_0956+5347_selfcal.ms')
+
+tclean(vis = '5ap_0956+5347_selfcal.ms', imagename = '5ap_0956+5347_selfcal.ms.selfcal.15uJy',imsize = [1512], pblimit=-0.01, threshold = '15uJy', niter = 100000)
+
+
+
+
+
+
+
+---Return from co op---
+
+delmod("SDSSJ0956+5347_split.ms")
+
+tclean(vis="SDSSJ0956+5347_split.ms", imagename="SDSSJ0956+5347_split.ms.shallowbright", imsize=[1512], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn") 
+
+plotants(vis="SDSSJ0956+5347_split.ms", figfile="0956+5347.antconfig.pdf")
+
+gaincal(vis="SDSSJ0956+5347_split.ms", caltable="0956+5347_phasecal_10min__refantea16_r1", calmode="p", solint="10min", minsnr=3.0, refant="ea16")
+
+plotcal(caltable='0956+5347_phasecal_10min__refantea16_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='SDSSJ0956+5347_split.ms', gaintable=['0956+5347_phasecal_10min_r1'])
+
+tclean(vis="SDSSJ0956+5347_split.ms", imagename="SDSSJ0956+5347_split.ms.50uJy", imsize=[1512], pblimit=-.01, niter=100000, threshold="50uJy", deconvolver="mtmfs", nterms=2, scales=[0,5,9,15,25], smallscalebias=0.6) 
+
+
+delmod("SDSSJ0956+5347_split.ms")
+
+tclean(vis="SDSSJ0956+5347_split.ms", imagename="SDSSJ0956+5347_split.ms.shallowbright2", imsize=[1512], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn") 
+
+
+gaincal(vis="SDSSJ0956+5347_split.ms", caltable="0956+5347_phasecal_10min_r2", gaintable=['0956+5347_phasecal_10min_r1'], calmode="p", solint="10min", minsnr=3.0, refant="ea13")
+SDSSJ0956+5347_split.ms.selfcal2.50uJy.image.tt0plotcal(caltable='0956+5347_phasecal_10min_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='SDSSJ0956+5347_split.ms', gaintable=['0956+5347_phasecal_10min_r1', '0956+5347_phasecal_10min_r2'])
+
+
+tclean(vis="SDSSJ0956+5347_split.ms", imagename="SDSSJ0956+5347_split.ms.selfcal2.40uJy", imsize=[1512], pblimit=-.01, niter=100000, threshold="40uJy", deconvolver="mtmfs", nterms=2, scales=[0,5,9,15,25], smallscalebias=0.6) 

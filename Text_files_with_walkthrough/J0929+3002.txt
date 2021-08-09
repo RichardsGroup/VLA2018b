@@ -1,0 +1,99 @@
+27 antennas
+29:35
+
+Low QA scores on weblog for this observation:
+Stage 3 - flagdata (yellow): 28.15% data flagged
+
+High delays in stage 14 (finalcals)
+
+
+
+09 29 34, +30 02 40.8
+
+
+Spw
+30: 01 (with delays), 16
+
+31: 04, 16
+
+
+flagdata(vis = '18B-229.sb35970582.eb36089308.58485.28229004629.ms', spw = '30', antenna = '0, 15')
+
+flagdata(vis = '18B-229.sb35970582.eb36089308.58485.28229004629.ms', spw = '31', antenna = '3, 15')
+
+statwt(vis = '18B-229.sb35970582.eb36089308.58485.28229004629.ms', spw = '30, 31')
+
+split(vis = '18B-229.sb35970582.eb36089308.58485.28229004629.ms', outputvis = 'SDSSJ0929+3002_split.ms', field = '2')
+
+Dirty:
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz1280.dirty', imsize = [1280])
+
+Dirty RMS = 6.3uJy
+
+Clean:
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz672.thresh24uJy', imsize = [672], threshold = '0.24mJy', niter = 10000)
+
+Clean RMS = 4.1uJy
+
+-Peak Flux = 11.1uJy
+-Int. Flux = 10.6uJy
+
+
+---8/8---
+
+Threshold = .09mJy
+
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz672.threshp09mJy', imsize = [672], threshold = '0.09mJy', niter = 10000)
+
+
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz672.threshp048mJy', imsize = [672], threshold = '0.048mJy', niter = 10000)
+
+
+
+---Spectral Index---
+
+delmod('SDSSJ0929+3002_split.ms')
+
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz672.MTMFS', imsize = [672], threshold = '55uJy', niter = 100000, deconvolver="mtmfs")
+
+
+
+-SkyView-
+
+Lower-right radio position: 09:29:32.768, +30.01.35.079
+Optical position          :
+
+
+
+--Return 6/24--
+
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz1512.dirty', imsize = [1512], pblimit=-.01)
+
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz1512.40uJy', imsize = [1512], pblimit=-.01, niter=100000, threshold="40uJy")
+
+
+delmod "SDSSJ0929+3002_split.ms"
+
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz1512.shallowbright', imsize = [1512], pblimit=-.01, niter=1, savemodel="modelcolumn", interactive=True)
+
+
+gaincal(vis = 'SDSSJ0929+3002_split.ms', caltable = '0929+3002_phasecal_2min_r1', calmode = 'p', refant = 'ea02', solint = '2min', minsnr = 3.0)
+
+plotcal(caltable='0929+3002_phasecal_2min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ0929+3002_split.ms', gaintable=['0929+3002_phasecal_2min_r1'])
+
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.40uJy.selfcal1', imsize = [1512], pblimit=-.01, niter=100000, threshold="40uJy")
+
+
+
+#Solutions are bad -- keep the original
+
+flagmanager(vis="SDSSJ0929+3002_split.ms", mode="restore", versionname="applycal_1")
+
+tclean(vis = 'SDSSJ0929+3002_split.ms', imagename = 'SDSSJ0929+3002_split.ms.sz1512.25uJy.nocals', imsize = [1512], pblimit=-.01, niter=100000, threshold="25uJy")
+
+
+
+
+imfit(imagename="J0929+3002.FITS", box="745.733, 744.198, 767.5, 767.221", excludepix=[-1e10,0], logfile="Imfits/J0929+3002_imfit2.log")

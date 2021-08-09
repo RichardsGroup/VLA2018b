@@ -1,0 +1,191 @@
+26 antennas
+29:55
+
+11 00 41.32 +31 50 18.1
+
+Similar spikes in spw 18 as before -- try w/o flagging to see if there's a difference
+
+~7ns delays for ea10
+
+split(vis = '18B-229.sb35967811.eb36261099.58522.49736149306.ms', outputvis = 'SDSSJ1100+3150_split.ms', field = '2')
+
+
+Dirty:
+tclean(vis = 'SDSSJ1100+3150_split.ms', imagename = 'SDSSJ1100+3150_split.ms.sz1280.dirty', imsize = [1280])
+
+-Very faint detection
+
+Dirty RMS = 8.3 uJy
+
+PF = 28.9uJy
+IF = 49.4uJy/beam
+
+
+Clean:
+tclean(vis = 'SDSSJ1100+3150_split.ms', imagename = 'SDSSJ1100+3150_split.ms.sz1024.thresh21uJy', imsize = [1024], threshold = '0.21mJy', niter = 10000)
+
+Clean RMS = 7.8uJy
+
+Peak Flux = 31.6uJy
+Int. Flux = 37.9uJy/beam
+
+--8/8--
+
+tclean(vis = 'SDSSJ1100+3150_split.ms', imagename = 'SDSSJ1100+3150_split.ms.sz1024.threshp09mJy', imsize = [1024], threshold = '0.09mJy', niter = 10000)
+
+tclean(vis = 'SDSSJ1100+3150_split.ms', imagename = 'SDSSJ1100+3150_split.ms.sz1024.30uJy', imsize = [1024], threshold = '30uJy', niter = 10000)
+
+
+
+
+
+---Co op Self Cal---
+
+delmod('SDSSJ1100+3150_split.ms')
+
+clean(vis = 'SDSSJ1100+3150_split.ms', imagename = 'SDSSJ1100+3150_split.ms.shallowbright_clean', imsize = [1280], interactive = True)
+
+gaincal(vis = 'SDSSJ1100+3150_split.ms', caltable = '1100+3150_solint1min_r1', calmode = 'p', refant = 'ea02', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1100+3150_solint1min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1100+3150_split.ms', gaintable=['1100+3150_solint1min_r1'], calwt=False)
+
+
+gaincal(vis = 'SDSSJ1100+3150_split.ms', caltable = '1100+3150_solint40s_r2', gaintable = ['1100+3150_solint1min_r1'], calmode = 'p', refant = 'ea02', solint = '40s', minsnr = 3.0)
+
+plotcal(caltable='1100+3150_solint40s_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1100+3150_split.ms', gaintable=['1100+3150_solint1min_r1', '1100+3150_solint40s_r2'], calwt=False)
+
+
+
+gaincal(vis = 'SDSSJ1100+3150_split.ms', caltable = '1100+3150_solint30s_r3', gaintable = ['1100+3150_solint1min_r1', '1100+3150_solint40s_r2'], calmode = 'p', refant = 'ea02', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='1100+3150_solint30s_r3',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1100+3150_split.ms', gaintable=['1100+3150_solint1min_r1', '1100+3150_solint40s_r2', '1100+3150_solint30s_r3'], calwt=False)
+
+
+gaincal(vis = 'SDSSJ1100+3150_split.ms', caltable = '1100+3150_solint20s_r4', gaintable = ['1100+3150_solint1min_r1', '1100+3150_solint40s_r2', '1100+3150_solint30s_r3'], calmode = 'p', refant = 'ea02', solint = '20s', minsnr = 3.0)
+
+plotcal(caltable='1100+3150_solint20s_r4',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1100+3150_split.ms', gaintable=['1100+3150_solint1min_r1', '1100+3150_solint40s_r2', '1100+3150_solint30s_r3', '1100+3150_solint20s_r4'], calwt=False)
+
+
+
+gaincal(vis = 'SDSSJ1100+3150_split.ms', caltable = '1100+3150_solint20s_r5ap', gaintable = ['1100+3150_solint1min_r1', '1100+3150_solint40s_r2', '1100+3150_solint30s_r3', '1100+3150_solint20s_r4'], calmode = 'ap', refant = 'ea02', solint = '20s', minsnr = 3.0)
+
+plotcal(caltable='1100+3150_solint20s_r5ap',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1100+3150_split.ms', gaintable=['1100+3150_solint1min_r1', '1100+3150_solint40s_r2', '1100+3150_solint30s_r3', '1100+3150_solint20s_r4', '1100+3150_solint20s_r5ap'], calwt=False)
+
+
+
+--Spec Index--
+
+delmod('SDSSJ1100+3150_split.ms')
+
+tclean(vis = 'SDSSJ1100+3150_split.ms', imagename = 'SDSSJ1100+3150_split.ms.35uJy', imsize = [1280], pblimit=-0.01, threshold = '35uJy', niter = 100000)
+
+
+
+delmod('SDSSJ1100+3150_split.ms')
+
+tclean(vis = 'SDSSJ1100+3150_split.ms', imagename = 'SDSSJ1100+3150_split.ms.45uJy.inband1', imsize = [1280], pblimit=-0.01, threshold = '45uJy', niter = 100000, spw='16~23')
+
+Sp_1 = 194uJy/b
+
+
+
+delmod('SDSSJ1100+3150_split.ms')
+
+tclean(vis = 'SDSSJ1100+3150_split.ms', imagename = 'SDSSJ1100+3150_split.ms.100uJy.inband2', imsize = [1280], pblimit=-0.01, threshold = '100uJy', niter = 100000, spw='24~31')
+
+Sp_2 = 213uJy/b
+
+
+#Do alpha_mfs next after hearing back from Amy
+
+
+
+--Multi-Term MFS Spectral Index--
+
+tclean(vis = 'SDSSJ1100+3150_split.ms', imsize = [1280], imagename = 'SDSSJ1100+3150_split.ms.95uJy.full.mtmfs', pblimit = -0.01, threshold = '95uJy', niter = 100000, deconvolver = "mtmfs")
+
+#Return after response from Amy -- remember to delmod
+
+
+
+-SkyView-
+
+Radio position of lower lobe:  11:00:41.72, +31.49.41.588
+Optical position            :  Matched
+
+Radio position of upper lobe:  11:00:41.38, +31.51.22.615
+Optical position.           :  Unmatched!
+
+
+
+
+--SelfCal_J1100+3150_PhaseOnly--
+
+applycal(vis='1100+3150_phaseCalOnly.ms', gaintable=['1100+3150_solint1min_r1', '1100+3150_solint40s_r2', '1100+3150_solint30s_r3', '1100+3150_solint20s_r4'], calwt=False)
+
+tclean(vis = '1100+3150_phaseCalOnly.ms', imagename = '1100+3150_phaseCalOnly.ms.35uJy', imsize = [1280], pblimit=-0.01, threshold = '35uJy', niter = 100000)
+
+#Just splitting a new MS and applying the older phase calibration tables to that doesn't #work--which makes sense.  Although, it makes sense that after redoing an interactive #clean of the source we want to self-calibrate with, it might work.  So:
+
+tclean(vis = '1100+3150_phaseOnly.ms', imagename = '1100+3150_phaseOnly.ms.dirty', imsize = [1280])
+
+
+clean(vis = '1100+3150_phaseCalOnly.ms', imagename = '1100+3150_phaseCalOnly.ms.shallowbright_clean', imsize = [1280], interactive = True)
+
+
+#I botched the MS - think I'll need to re-download this from archive if I want to go ahead #and do phase cal only.  But it may not really be worth it for this one.
+
+
+
+split(vis="18B-229.sb35967811.eb36261099.58522.49736149306.ms", outputvis="1100+3150_phaseCalOnly.ms", field="2")
+
+tclean(vis="1100+3150_phaseCalOnly.ms", imagename="1100+3150_phaseCalOnly.ms.dirty", imsize=[1280])
+
+tclean(vis="1100+3150_phaseCalOnly.ms", imagename="1100+3150_phaseCalOnly.ms.shallowbright", imsize=[1280], niter=1, savemodel="modelcolumn", interactive=True)
+
+gaincal(vis="1100+3150_phaseCalOnly.ms", caltable="1100+3150_phasecal_1min_r1", calmode="p", solint="1min", refant="ea02", minsnr=3.0)
+
+plotcal(caltable="1100+3150_phasecal_1min_r1", xaxis="time", yaxis="phase", plotrange=[0,0,-150,150], iteration="antenna", subplot=331)
+
+applycal(vis="1100+3150_phaseCalOnly.ms", gaintable=["1100+3150_phasecal_1min_r1"])
+
+tclean(vis="1100+3150_phaseCalOnly.ms", imagename="1100+3150_phaseCalOnly.ms.37p5uJy", imsize=[1280], niter=100000, threshold="37.5uJy")
+
+
+tclean(vis="1100+3150_phaseCalOnly.ms", imagename="1100+3150_phaseCalOnly.ms.shallowbright2", imsize=[1280], niter=1, savemodel="modelcolumn", interactive=True)
+
+gaincal(vis="1100+3150_phaseCalOnly.ms", caltable="1100+3150_phasecal_45s_r2", gaintable=["1100+3150_phasecal_1min_r1"], calmode="p", solint="45s", refant="ea02", minsnr=3.0)
+
+plotcal(caltable="1100+3150_phasecal_45s_r2", xaxis="time", yaxis="phase", plotrange=[0,0,-150,150], iteration="antenna", subplot=331)
+
+
+applycal(vis="1100+3150_phaseCalOnly.ms", gaintable=["1100+3150_phasecal_1min_r1", "1100+3150_phasecal_45s_r2"])
+
+
+
+tclean(vis="1100+3150_phaseCalOnly.ms", imagename="1100+3150_phaseCalOnly.ms.25uJy.selfcal2", imsize=[1280], niter=100000, threshold="25uJy")
+
+tclean(vis="1100+3150_phaseCalOnly.ms", imagename="1100+3150_phaseCalOnly.ms.25uJy.selfcal2.awproj", imsize=[1280], niter=100000, threshold="25uJy", gridder="awproject", wprojplanes=256)
+
+delmod("1100+3150_phaseCalOnly.ms")
+
+
+tclean(vis="1100+3150_phaseCalOnly.ms", imagename="1100+3150_phaseCalOnly.ms.75uJy.selfcal2.MTMFS", imsize=[1280], niter=100000, threshold="75uJy", deconvolver="mtmfs", nterms=2)
+
+
+
+imfit(imagename="J1100+3150.FITS", box="624.035, 626.244, 656.012, 655.198", excludepix=[-1e10,0], logfile="Imfits/J1100+3150_imfit2.log")
+
+
+
+

@@ -1,0 +1,143 @@
+27 antennas
+29:35
+
+13 02 43.08 +13 00 39.3
+
+
+Finalampfreqcal:
+
+Spw18: ea01, 03, 06, 09~16, 19, 21~23, 26~28
+
+Finaldelays:
+
+Spw16~23: antenna 0
+
+
+flagdata(vis = '18B-229.sb35972476.eb36252525.58521.53961692129.ms', spw = '18', antenna = '2, 5, 7~14, 17, 19~21, 24~26')
+
+flagdata(vis = '18B-229.sb35972476.eb36252525.58521.53961692129.ms', spw = '16~23', antenna = '0')
+
+statwt(vis = '18B-229.sb35972476.eb36252525.58521.53961692129.ms', spw = '16~23')
+
+split(vis = '18B-229.sb35972476.eb36252525.58521.53961692129.ms', outputvis = 'SDSSJ1302+1300_split.ms', field = '2')
+
+Dirty:
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.sz1280.dirty', imsize = [1280])
+
+-Possible Detection
+
+-Dirty RMS = 3.5uJy
+
+Clean:
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.sz1280.thresh15uJy', imsize = [1280], niter = 10000, threshold = '0.15mJy')
+
+Peak Flux = 9.4uJy/beam
+
+Int. Flux = 11.7uJy
+
+--8/8--
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.sz1280.threshp075mJy', imsize = [1280], niter = 10000, threshold = '0.075mJy')
+
+rms=42u
+pf=.11m
+if=.13m
+
+
+--8/21--
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imsize = [1512], pblimit=-0.01, imagename = 'SDSSJ1302+1300_split.ms.auto_thresh.thresh30uJy.1512p', threshold = '30uJy', niter = 15000, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+
+
+
+
+---Co op SelfCal---
+
+delmod('SDSSJ1302+1300_split.ms')
+
+clean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.shallowbright_clean', imsize = [2560], interactive=True)
+
+gaincal(vis = 'SDSSJ1302+1300_split.ms', caltable = '1302+1300_solint1min_r1', calmode = 'p', refant = 'ea23', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1302+1300_solint1min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1302+1300_split.ms', gaintable=['1302+1300_solint1min_r1'], calwt=False)
+
+
+
+
+gaincal(vis = 'SDSSJ1302+1300_split.ms', caltable = '1302+1300_solint40s_r2', gaintable = ['1302+1300_solint1min_r1'], calmode = 'p', refant = 'ea23', solint = '40s', minsnr = 3.0)
+
+plotcal(caltable='1302+1300_solint40s_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1302+1300_split.ms', gaintable=['1302+1300_solint1min_r1', '1302+1300_solint40s_r2'], calwt=False)
+
+
+
+
+gaincal(vis = 'SDSSJ1302+1300_split.ms', caltable = '1302+1300_solint25s_r3', gaintable = ['1302+1300_solint1min_r1', '1302+1300_solint40s_r2'], calmode = 'p', refant = 'ea23', solint = '25s', minsnr = 3.0)
+
+plotcal(caltable='1302+1300_solint25s_r3',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1302+1300_split.ms', gaintable=['1302+1300_solint1min_r1', '1302+1300_solint40s_r2', '1302+1300_solint25s_r3'], calwt=False)
+
+
+
+
+gaincal(vis = 'SDSSJ1302+1300_split.ms', caltable = '1302+1300_solint15s_r4', gaintable = ['1302+1300_solint1min_r1', '1302+1300_solint40s_r2', '1302+1300_solint25s_r3'], calmode = 'p', refant = 'ea23', solint = '15s', minsnr = 3.0)
+
+plotcal(caltable='1302+1300_solint15s_r4',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1302+1300_split.ms', gaintable=['1302+1300_solint1min_r1', '1302+1300_solint40s_r2', '1302+1300_solint25s_r3', '1302+1300_solint15s_r4'], calwt=False)
+
+
+
+
+gaincal(vis = 'SDSSJ1302+1300_split.ms', caltable = '1302+1300_solint15s_r5ap', gaintable = ['1302+1300_solint1min_r1', '1302+1300_solint40s_r2', '1302+1300_solint25s_r3', '1302+1300_solint15s_r4'], calmode = 'ap', refant = 'ea23', solint = '15s', minsnr = 3.0)
+
+plotcal(caltable='1302+1300_solint15s_r5ap',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='SDSSJ1302+1300_split.ms', gaintable=['1302+1300_solint1min_r1', '1302+1300_solint40s_r2', '1302+1300_solint25s_r3', '1302+1300_solint15s_r4', '1302+1300_solint15s_r5ap'], calwt=False)
+
+
+
+
+--Spectral Index--
+
+delmod('SDSSJ1302+1300_split.ms')
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.50uJy', imsize = [2560], pblimit=-0.01, threshold = '50uJy', niter = 100000)
+
+
+
+delmod('SDSSJ1302+1300_split.ms')
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.65uJy.inband1', imsize = [2560], pblimit=-0.01, threshold = '65uJy', niter = 100000, spw='16~23')
+
+Sp_1 = ~70-100uJy/b
+
+
+
+delmod('SDSSJ1302+1300_split.ms')
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.80uJy.MTMFS', imsize = [2560], pblimit=-0.01, threshold = '80uJy', niter = 100000, deconvolver="mtmfs")
+
+
+
+
+--Fix amp calibrations--
+
+flagmanager(vis="SDSSJ1302+1300_split.ms", mode="restore", versionname="applycal_1")
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.50uJy.nocals', imsize = [2560], pblimit=-0.01, threshold = '50uJy', niter = 100000)
+
+
+tclean(vis = 'SDSSJ1302+1300_split.ms', imagename = 'SDSSJ1302+1300_split.ms.25uJy.nocals', imsize = [2560], pblimit=-0.01, threshold = '25uJy', niter = 100000)
+
+
+
+
+imfit(imagename="J1302+1300.FITS", box="1269.36, 1270.5, 1288.27, 1288.73", excludepix=[-1e10,0], logfile="Imfits/J1302+1300_imfit.log")
+

@@ -1,0 +1,72 @@
+
+J1144+0202 and 1200+0005 : ID 282328856 -- done 
+
+J1445+5245 : ID 279849574 -- done*
+
+J1406+2923b : ID 279858794 -- done*
+
+J1443+3056b : ID 279867460 -- done*
+
+J1449+3110 : ID 279877743 -- done*
+
+(B) J0140+1411 : ID 279884535 -- done*
+
+J1514+5446b : ID 279987278 -- done*
+
+J1535+5402 : ID 280003206 -- done*
+
+-----7/10/2019-----
+
+J1546+1914 : ID 282388791 -- downloading -- done
+
+J1600+3027 and J1720+2847 : ID 282597976 -- processed, downloading -- done
+
+J1630+4111 and J1537+4815 : ID 282609856 -- processed, downloading -- done
+
+J1338+0846 and J1353+0718 : ID 282623955 -- processed, downloading -- done
+
+J1208+6533 and J1241+6246 : ID 282632680 -- processed, downloading -- done
+
+J1217+2943 : ID 282642464 -- processed, downloading -- done
+
+J1222+4141 : ID 282653667 -- processed, downloading -- done
+
+J1130+1903 : ID 282662347 -- processed, downloading -- done
+
+J1132+1726 : ID 282671617 -- processed, downloading -- done
+
+J1100+3150 : ID 282681793 -- processed, downloading -- done
+
+J1107+2708 : ID 282691615 -- processed, downloading -- done
+
+J0816+4924 and J0829+4016 : ID 282704553 -- processed, downloading -- done
+
+J0823+2139 : ID 282717564 -- processed, downloading -- done
+
+J0824+2606 : ID 282729847 -- processed, downloading -- done
+
+J0929+3002 : ID 282745725 -- processed, downloading -- done
+
+J0929+2705 : ID 282772556 -- processed, downloading -- done
+
+J1322+3248 : ID 282789741 -- processed, downloading -- done
+
+J1302+1300 : ID 282801168 -- processed, downloading -- done
+
+J1305+4624 : ID 282813596 -- processed, downloading -- done
+
+J0905+1545 : ID 282822571 -- processed, downloading -- done
+
+J1007+1628 : ID 282831854 -- processed, downloading -- done
+
+J0956+5347 : ID 282848957 -- processed, downloading -- done
+
+J1040+3626 : ID 282859279 -- processed, downloading -- done!
+
+
+
+
+
+
+
+

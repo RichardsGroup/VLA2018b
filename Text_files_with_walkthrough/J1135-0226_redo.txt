@@ -1,0 +1,45 @@
+split(vis="18B-229.sb35898197.eb35955031.58451.583387210645.ms", outputvis="1135+0014_and_1135-0226_compression.ms", datacolumn="data", spw="0,1,16~31")
+
+execfile("casa_pipescript.py")
+
+split(vis="18B-229.sb35898197.eb35955031.58451.583387210645.ms", outputvis="1135+0014_and_1135-0226_compression.ms", datacolumn="data", spw="0,1,16~31")
+
+#dirty image
+
+
+split(vis="1135+0014_and_1135-0226_compression.ms", outputvis="1135-0226_compressionfix.ms", field=3)
+
+tclean(vis="1135-0226_compressionfix.ms", imagename="1135-0226_compressionfix.ms.dirty1280", imsize=[1280])
+
+tclean(vis="1135-0226_compressionfix.ms", imagename="1135-0226_compressionfix.ms.65uJy.MTMFS", imsize=[1280], niter=100000, threshold="65uJy", deconvolver="mtmfs", nterms=2)
+
+
+#Do self cal
+
+delmod("1135-0226_compressionfix.ms")
+
+tclean(vis="1135-0226_compressionfix.ms", imagename="1135-0226_compressionfix.ms.shallowbright", imsize=[1280], niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="1135-0226_compressionfix.ms", caltable="1135-0226_phasecal_10min_r1", solint="10min", calmode="p", minsnr=3.0, refant="ea13")
+
+plotcal(caltable="1135-0226_phasecal_10min_r1", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+applycal(vis="1135-0226_compressionfix.ms", gaintable=["1135-0226_phasecal_10min_r1"])
+
+tclean(vis="1135-0226_compressionfix.ms", imagename="1135-0226_compressionfix.ms.selfcal1.60uJy", imsize=[1280], niter=100000, threshold="60uJy")
+
+
+
+
+delmod("1135-0226_compressionfix.ms")
+
+tclean(vis="1135-0226_compressionfix.ms", imagename="1135-0226_compressionfix.ms.shallowbright2", imsize=[1280], niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="1135-0226_compressionfix.ms", caltable="1135-0226_phasecal_1min_r2", gaintable=["1135-0226_phasecal_10min_r1"], solint="1min", calmode="p", minsnr=3.0, refant="ea13")
+
+plotcal(caltable="1135-0226_phasecal_1min_r2", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+applycal(vis="1135-0226_compressionfix.ms", gaintable=["1135-0226_phasecal_10min_r1", "1135-0226_phasecal_1min_r2"])
+
+tclean(vis="1135-0226_compressionfix.ms", imagename="1135-0226_compressionfix.ms.selfcal2.MTMFS.60uJy", imsize=[1280], niter=100000, threshold="60uJy", deconvolver="mtmfs", nterms=2)
+

@@ -1,0 +1,78 @@
+Initially, I thought the group of radio sources closer to the middle was an imaging error, but it wasn't, as shown by the FIRST cutout of that area
+
+-------------
+
+Exact Coordinates: 15 35 12.1 +54 02 15.2
+
+-stage 5 priorcals - SPgains plots indicate that a compression fix may be necessary
+
+-spws 17,18 show spikes in cal amp vs frequency in end plot summary
+
+-spws 29-31 also show increased amplitude, but not as significant--should not need flagging
+
+-spikes from RFI in final amp freq cal (stage 14): 
+	ea01~03, ea05~07, ea10~19, ea21~27
+	antennas: 0~2, 4~6, 10~17, 19~25
+
+
+
+flagdata(vis = '18B-229.sb35927429.eb36163928.58508.373852766206.ms', antenna = '0~2', spw = '18')
+
+flagdata(vis = '18B-229.sb35927429.eb36163928.58508.373852766206.ms', antenna = '4~6', spw = '18')
+
+flagdata(vis = '18B-229.sb35927429.eb36163928.58508.373852766206.ms', antenna = '10~17', spw = '18')
+
+flagdata(vis = '18B-229.sb35927429.eb36163928.58508.373852766206.ms', antenna = '19~25', spw = '18')
+
+statwt(vis = '18B-229.sb35927429.eb36163928.58508.373852766206.ms', spw = '18')
+
+split(vis = '18B-229.sb35927429.eb36163928.58508.373852766206.ms', outputvis = 'SDSSJ1535+5402_split.ms', field = '2')
+
+Dirty Image:
+tclean(vis = 'SDSSJ1535+5402_split.ms', imagename = 'SDSSJ1535+5402_split.ms.dirty.sz1280', imsize = [1280])
+
+-Dirty Rms = 5.3uJy
+
+
+
+Cleaned Image:
+tclean(vis = 'SDSSJ1535+5402_split.ms', imagename = 'SDSSJ1535+5402_split.ms.sz1280.thresh24uJy', imsize = [1280], threshold = '0.24mJy', niter = 10000)
+
+-completed in 158 iterations
+
+-Rms = 2.35uJy
+
+Peak Flux = 4.7uJy/beam
+
+Int Flux = 2.7uJy
+
+
+--8/8--
+
+tclean(vis = 'SDSSJ1535+5402_split.ms', imagename = 'SDSSJ1535+5402_split.ms.sz1280.threshp06mJy', imsize = [1280], threshold = '0.06mJy', niter = 10000)
+
+Rms=12.5u
+pf=49u
+if=34u
+
+tclean(vis = 'SDSSJ1535+5402_split.ms', imagename = 'SDSSJ1535+5402_split.ms.sz1280.threshp06mJy', imsize = [1280], threshold = '30uJy', niter = 30000)
+
+
+*This one is good
+
+
+
+--Spectral index--
+
+delmod('SDSSJ1535+5402_split.ms')
+
+tclean(vis = 'SDSSJ1535+5402_split.ms', imagename = 'SDSSJ1535+5402_split.ms.sz1280.60uJy.MTMFS', imsize = [1280], pblimit=-0.01, threshold = '60uJy', niter = 100000, deconvolver="mtmfs")
+
+
+
+tclean(vis = 'SDSSJ1535+5402_split.ms', imagename = 'SDSSJ1535+5402_split.ms.sz1280.18uJy', imsize = [1280], threshold = '18uJy', niter = 100000)
+
+
+
+imfit(imagename="J1535+5402.FITS", box="631.826, 631.709, 650.43, 647.407", excludepix=[-1e10,0], logfile="Imfits/J1535+5402_imfit.log")
+

@@ -1,0 +1,65 @@
+split(vis="18B-229.sb35832779.eb35951030.58450.52327575232.ms", outputvis="1058+0152_compressionfix.ms", datacolumn="data", spw="0,1,16~31")
+
+execfile("casa_pipescript.py")
+
+split(vis="1058+0152_compressionfix.ms", outputvis="1058+0152.ms", field=2)
+
+tclean(vis="1058+0152.ms", imagename="1058+0152.ms.dirty2560", imsize=[2560], pblimit=-.01)
+
+tclean(vis="1058+0152.ms", imagename="1058+0152.ms.shallowbright", imsize=[2560], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+
+gaincal(vis="1058+0152.ms", caltable="1058+0152_phasecal_10min_r1", calmode="p", solint="10min", refant="ea02", minsnr=3.0)
+
+
+plotcal(caltable="1058+0152_phasecal_10min_r1", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+
+applycal(vis="1058+0152.ms", gaintable=["1058+0152_phasecal_10min_r1"])
+
+
+tclean(vis="1058+0152.ms", imagename="1058+0152.ms.300uJy", imsize=[2560], pblimit=-.01, niter=100000, threshold="300uJy")
+
+tclean(vis="1058+0152.ms", imagename="1058+0152.ms.3mJy.selfcal1.3TMFS", imsize=[2560], pblimit=-.01, niter=100000, threshold="3mJy", deconvolver="mtmfs", nterms=3)
+
+
+
+
+delmod("1058+0152.ms")
+
+tclean(vis="1058+0152.ms", imagename="1058+0152.ms.shallowbright2", imsize=[2560], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+
+gaincal(vis="1058+0152.ms", caltable="1058+0152_phasecal_1min_r2", gaintable=["1058+0152_phasecal_10min_r1"], calmode="p", solint="1min", refant="ea02", minsnr=3.0)
+
+
+plotcal(caltable="1058+0152_phasecal_1min_r2", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+
+applycal(vis="1058+0152.ms", gaintable=["1058+0152_phasecal_10min_r1", "1058+0152_phasecal_1min_r2"])
+
+tclean(vis="1058+0152.ms", imagename="1058+0152.ms.2p5mJy.selfcal2.3TMFS", imsize=[2560], pblimit=-.01, niter=100000, threshold="2.5mJy", deconvolver="mtmfs", nterms=3)
+
+
+delmod("1058+0152.ms")
+
+tclean(vis="1058+0152.ms", imagename="1058+0152.ms.shallowbright3ap", imsize=[2560], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+
+gaincal(vis="1058+0152.ms", caltable="1058+0152_phasecal_10min_r3ap", gaintable=["1058+0152_phasecal_10min_r1", "1058+0152_phasecal_1min_r2"], calmode="ap", solint="10min", refant="ea02", minsnr=3.0, solnorm=True)
+
+
+plotcal(caltable="1058+0152_phasecal_10min_r3ap", plotrange=[0,0,0,2], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+
+applycal(vis="1058+0152.ms", gaintable=["1058+0152_phasecal_10min_r1", "1058+0152_phasecal_1min_r2", "1058+0152_phasecal_10min_r3ap"])
+
+tclean(vis="1058+0152.ms", imagename="1058+0152.ms.5mJy.selfcal3ap.2TMFS.awproj", imsize=[2560], pblimit=-.01, niter=100000, threshold="5mJy", deconvolver="mtmfs", nterms=2, gridder="awproject", cfcache="2560p_cell1arcsec.cf")
+
+
+
+07/24/2020:
+
+I met with Amy and we both agreed that this target should just be excluded from our sample.  There is a strong ~100mJy source just outside the coverage of the primary beam causing serious imaging problems.  That coupled with strong compression+interference from this object being around the Clarke belt makes getting a decent image for this source extremely difficult.  
+
+Reaching an rms of ~10muJy would require an image dynamic range of 10^-1Jy/10^-5 ~ 10^4.  Once you pass ~1000, imaging starts to get very complicated and so our best option is really just to exclude it from our sample.

@@ -1,0 +1,107 @@
+
+Compression Process for J1135-0226 -- separate process from +0014d
+
+split(vis = 'J1135+0014_compressionSplit.ms',  outputvis = '1_J1135-0226_selfcal.ms', field = '3')
+
+clean(vis = '1_J1135-0226_selfcal.ms', imsize = [1280], imagename = '1_J1135-0226_selfcal.ms.shallowbright_clean', interactive=True)
+
+gaincal(vis = '1_J1135-0226_selfcal.ms', caltable = '1135-0226_solint1min_r1', calmode = 'p', refant = 'ea02', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1135-0226_solint1min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J1135-0226_selfcal.ms', gaintable=['1135-0226_solint1min_r1'], calwt=False)
+
+
+--Self Cal Round 2--
+
+gaincal(vis = '1_J1135-0226_selfcal.ms', caltable = '1135-0226_solint40s_r2', gaintable = ['1135-0226_solint1min_r1'], calmode = 'p', refant = 'ea02', solint = '40s', minsnr = 3.0)
+
+plotcal(caltable='1135-0226_solint40s_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J1135-0226_selfcal.ms', gaintable=['1135-0226_solint1min_r1', '1135-0226_solint40s_r2'], calwt=False)
+
+
+--Self Cal Round 3--
+
+gaincal(vis = '1_J1135-0226_selfcal.ms', caltable = '1135-0226_solint30s_r3', gaintable = ['1135-0226_solint1min_r1', '1135-0226_solint40s_r2'], calmode = 'p', refant = 'ea02', solint = '30s', minsnr = 3.0)
+
+plotcal(caltable='1135-0226_solint30s_r3',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J1135-0226_selfcal.ms', gaintable=['1135-0226_solint1min_r1', '1135-0226_solint40s_r2', '1135-0226_solint30s_r3'], calwt=False)
+
+
+
+--Self Cal Round 4--
+
+gaincal(vis = '1_J1135-0226_selfcal.ms', caltable = '1135-0226_solint20s_r4', gaintable = ['1135-0226_solint1min_r1', '1135-0226_solint40s_r2', '1135-0226_solint30s_r3'], calmode = 'p', refant = 'ea02', solint = '20s', minsnr = 3.0)
+
+plotcal(caltable='1135-0226_solint20s_r4',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J1135-0226_selfcal.ms', gaintable=['1135-0226_solint1min_r1', '1135-0226_solint40s_r2', '1135-0226_solint30s_r3', '1135-0226_solint20s_r4'], calwt=False)
+
+
+
+
+--Self Cal Round 5ap--
+
+gaincal(vis = '1_J1135-0226_selfcal.ms', caltable = '1135-0226_solint20s_r5ap', gaintable = ['1135-0226_solint1min_r1', '1135-0226_solint40s_r2', '1135-0226_solint30s_r3', '1135-0226_solint20s_r4'], calmode = 'ap', refant = 'ea02', solint = '20s', minsnr = 3.0)
+
+plotcal(caltable='1135-0226_solint20s_r5ap',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-180,180])
+
+applycal(vis='1_J1135-0226_selfcal.ms', gaintable=['1135-0226_solint1min_r1', '1135-0226_solint40s_r2', '1135-0226_solint30s_r3', '1135-0226_solint20s_r4', '1135-0226_solint20s_r5ap'], calwt=False)
+
+
+
+delmod('1_J1135-0226_selfcal.ms')
+
+tclean(vis = '1_J1135-0226_selfcal.ms', imsize = [1280], imagename = '1_J1135-0226_selfcal.ms.30uJy', threshold = '30uJy', niter = 100000, pblimit=-0.01)
+
+
+
+FINAL RMS: 8.3uJy
+
+
+
+----Return from co op----
+#1136-0226 stored in 1135+0014 MS
+
+split(vis = 'J1135+0014_compressionSplit.ms',  outputvis = '1_J1135-0226_selfcal.ms', field = '3')
+
+tclean(vis="1135-0226.ms", imagename="1135-0226.ms.dirty1280", imsize=[1280])
+
+tclean(vis="1135-0226.ms", imagename="1135-0226.ms.shallowbright", imsize=[1280], niter=1, interactive=True, savemodel="modelcolumn")
+
+
+gaincal(vis="1135-0226.ms", caltable="1135-0226_phasecal_10min_r1", calmode="p", minsnr=3.0, solint="10min", refant="ea02")
+
+plotcal(caltable="1135-0226_phasecal_10min_r1", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+applycal(vis="1135-0226.ms", gaintable=["1135-0226_phasecal_10min_r1"])
+
+tclean(vis="1135-0226.ms", imagename="1135-0226.ms.nocals.150uJy", imsize=[1280], niter=100000, threshold="150uJy")
+
+
+flagmanager(vis="1135-0226.ms", mode="restore", versionname="applycal_1")
+
+
+
+
+
+#Probably flagged way too many antennas; retry with (hopefully) original MS
+
+tar -xzvf 18B-229.sb35898197.eb35955031.58451.583387210645.ms.flagversions.tgz
+
+flagmanager(vis="18B-229.sb35898197.eb35955031.58451.583387210645.253444351.ms", mode="restore", versionname="Pipeline_Final")
+
+tclean(vis="1135-0226.ms", imagename="1135-0226.ms.dirty1280", imsize=[1280])
+
+tclean(vis="1135-0226.ms", imagename="1135-0226.ms.shallowbright", imsize=[1280], niter=1, interactive=True, savemodel="modelcolumn")
+
+
+gaincal(vis="1135-0226.ms", caltable="1135-0226_phasecal_10min_r1", calmode="p", minsnr=3.0, solint="10min", refant="ea02")
+
+plotcal(caltable="1135-0226_phasecal_10min_r1", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+applycal(vis="1135-0226.ms", gaintable=["1135-0226_phasecal_10min_r1"])
+
+tclean(vis="1135-0226.ms", imagename="1135-0226.ms.selfcal.110uJy", imsize=[1280], niter=100000, threshold="110uJy")

@@ -1,0 +1,97 @@
+FIRST 1019+4948;  Yes; can't tell if it's actually a jet.  Are there other radio counterparts?
+FIRST 2353-0859;  classic triple-morphology jetted source!
+
+SDSSJ1338+0846; 
+SDSSJ1449+3110; compare to rms; upper limit rms x 3?
+-See corrected image; source is faint, but does look real (S/N~6.0)
+
+SDSSJ1100+3150; The "lobes" look like noise spikes.  Not enough evidence to refute.  TREVOR: self-cal?
+-This one got two rounds of phase self-cal, although I've since tried applying some different gridding algorithms (w-proj/aw-proj) and they look to be improving the overall image quality.  aw-proj taking >~24hrs, so process is still sort of ongoing.  Upper "lobe" maybe looks more real in new image
+
+SDSSJ1048+0032; 
+
+SDSSJ1535+5402; ambiguous; compare to rms.  self-cal?
+-Did some deeper cleaning; looks faint but real now 
+
+SDSSJ1546+1914; 
+SDSSJ1720+2847; 
+
+SDSSJ0013-0024; Can't tell if the "lobes" are physical associations or not.  Gordon points out they'd be super-distant though.
+-Had to undo amplitude self-cal for this one; resulting image looks noisier, but it looks like there may be some extended emission here now.  Hard to say for sure on this color scale, but interacting with the image through CASA makes it seem realistic
+
+SDSSJ1208+6533; 
+SDSSJ1241+6246; TREVOR can you check if the bright thing has an optical association?  Also, did this one get self-calibrated?
+-This one got two rounds of phase self-cal; will check for optical association.  With better cleaning, new nearby lobe has popped up
+
+SDSSJ0823+2139; 
+SDSSJ1305+4624; 
+SDSSJ1406+2923; 
+
+SDSSJ0140+1411; ambiguous; use upper limit from rms (x3)
+-Looks to be real; our brightest observed source
+
+SDSSJ1630+4111; ambiguous; compare to rms
+-Very faint, but better S/N (~5.1) wither deeper cleaning
+
+SDSSJ1537+4815; do these two bright things have optical counterparts?  how far away would they be if at same redshift?
+-I can check this one once I go through the non-detections, but given its similarity to 0013, I'd think they'd be near >~1Mpc
+
+SDSSJ0929+3002; In full image looks like noise.  How does it compare to the rms?  self-cal on bright double to west?
+-I tried self-cal on this image a few times, but can't seem to get great solutions in any case.  However, in corrected image, detection looks more obvious (S/N~8.6)
+
+SDSSJ1302+1300; Yes looks like noise spikes.  self-cal? (using bright northern double)
+-This was actually one that amplitude self-cal totally botched! See the corrected image with no additional calibration
+
+SDSSJ1322+3248; 
+
+SDSSJ0929+2705; "lobes" look like noise peaks.  self-cal?
+-Didn't seem like self-cal was needed here, but definitely some deeper cleaning.  Deeper cleaning still leaves "lobes" so maybe that's more of a reason to think they're real?
+
+SDSSJ2346-0029; 
+SDSSJ1135+0014; 
+
+SDSSJ1353+0718; TREVOR would be good to see if there are optical matches to the other sources in this field, and if there is an optical source halfway between the pair of sources to the southwest.
+-Will check optical images
+
+SDSSJ0816+4924; 
+SDSSJ0829+4016; 
+SDSSJ0956+5347; 
+SDSSJ2131+1047; 
+SDSSJ1600+3027; 
+SDSSJ1130+1903; 
+SDSSJ1509+0756; 
+SDSSJ1040+3626; looks like noise; compare to rms
+-Colorscaling was no good before, but adjusting that and giving a bit more attention to the cleaning makes this seem like a pretty firm detection now.
+
+SDSSJ1443+3056; looks real, but image could use more cleaning / self-cal
+-Had some bad luck with self-cal on this one, but I agree that it could use more work
+
+SDSSJ0905+1545; 
+SDSSJ1200+0005; looks like noise; compare to rms
+-Previous image definitely looked like noise, but this one is maybe more convincing?  S/N~2.9, would definitely be pushing it with this one.
+
+SDSSJ1217+2943; What's the optical source in between the two unmatched sources?  Could it be the host galaxy, with lobes?  Or could it be a bent-core with our target as host?  GORDON: "bent lobes at ~npc?"  Should that be Mpc?  (too far to be physical!)
+-Nothing to add here, but Gordon did mention npc should be kpc
+
+SDSSJ1144+0202; ambiguous; compare to rms
+-Compression, better cleaning; looks to definitely be real now (S/N~8.8)
+
+SDSSJ0824+2606; 
+SDSSJ1058+0152; 
+SDSSJ1132+1726; ambiguous; compare to rms
+-Faint (S/N~3.7), but looks more real in corrected image
+
+SDSSJ0146-0915; 
+SDSSJ1222+4141; ambiguous with noise level; compare flux to rms; try self-cal
+-Didn't do self-cal on this one but will go back and try; S/N~3.9; looks faint but real?
+
+SDSSJ1135-0226; 
+SDSSJ2158+0027; 
+SDSSJ0157-0938; are there optical counterparts to these four things surrounding the target?  they're probably really far away though.
+SDSSJ1007+1628; 
+SDSSJ1514+5446; Low SNR detection, or noise peak?  compare to rms.  upper limit rms x 3?  self-cal?
+-Hard to say even after deeper cleaning, but S/N~3.1 and there's definitely a point of emission there.
+
+SDSSJ1107+2708; image needs more cleaning / self-cal (from southeast source).  (probably non-detection)
+SDSSJ1445+5245; ambiguous; compare to rms
+-Looks like detection after adjusting color scale; S/N~5.0

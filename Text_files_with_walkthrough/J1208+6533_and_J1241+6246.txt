@@ -1,0 +1,133 @@
+Time on each source = 29:40
+25 antennas -- maybe only 24 (no data shown for ea28)
+
+Finalamp vs freq
+-spw18 is an issue for all antennas
+
+flagdata(vis = '18B-229.sb35955991.eb36089318.58485.606123749996.ms', spw = '18')
+
+
+
+---1208+6533---
+
+split(vis = '18B-229.sb35955991.eb36089318.58485.606123749996.ms', outputvis = 'SDSSJ1208+6533_split.ms', field = '2')
+
+tclean(vis = 'SDSSJ1208+6533_split.ms', imagename = 'SDSSJ1208+6533_split.ms.sz1280.dirty', imsize = [1280])
+
+
+Dirty RMS = 4.65uJy
+
+
+Clean:
+tclean(vis = 'SDSSJ1208+6533_split.ms', imagename = 'SDSSJ1208+6533_split.ms.sz1280.thresh15uJy', imsize = [1280], threshold = '0.15mJy', niter = 10000)
+
+Clean RMS = 2.15uJy
+
+--8/8--
+
+tclean(vis = 'SDSSJ1208+6533_split.ms', imagename = 'SDSSJ1208+6533_split.ms.sz1280.threshp06mJy', imsize = [1280], threshold = '0.06mJy', niter = 10000)
+
+tclean(vis = 'SDSSJ1208+6533_split.ms', imagename = 'SDSSJ1208+6533_split.ms.sz1280.threshp036mJy', imsize = [1280], threshold = '27uJy', niter = 30000)
+
+tclean(vis = 'SDSSJ1208+6533_split.ms', imagename = 'SDSSJ1208+6533_split.ms.sz1280.threshp036mJy', imsize = [1280], threshold = '20uJy', niter = 30000)
+
+
+tclean(vis = 'SDSSJ1208+6533_split.ms', imagename = 'SDSSJ1208+6533_split.ms.sz1280.45uJy.MTMFS', imsize = [1280], threshold = '45uJy', niter = 100000, deconvolver="mtmfs", nterms=2)
+
+
+
+--Return from co op self cal--
+
+delmod("SDSSJ1208+6533_split.ms")
+
+tclean(vis="SDSSJ1208+6533_split.ms", imagename="SDSSJ1208+6533_split.ms.shallowbright", imsize=[1280], niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="SDSSJ1208+6533_split.ms", caltable="1208+6533_phasecal_10min_r1", refant="ea16", solint="10min", calmode="p", minsnr=3.0)
+
+plotcal(caltable="1208+6533_phasecal_10min_r1", xaxis="time", yaxis="phase", plotrange=[0,0,-150,150], subplot=331, iteration="antenna")
+
+applycal(vis="SDSSJ1208+6533_split.ms", gaintable=["1208+6533_phasecal_10min_r1"])
+
+
+
+**Note that I accidentally deleted the final image, so a previous version of the image has been uploaded to the GitHub
+
+
+
+
+---1241+6246---
+
+12 41 18.12,  +62 46 06.1
+
+split(vis = '18B-229.sb35955991.eb36089318.58485.606123749996.ms', outputvis = 'SDSSJ1241+6246_split.ms', field = '3')
+
+
+Dirty:
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.sz1280.dirty', imsize = [1280])
+
+
+Clean:
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.sz320.thresh21uJy', imsize = [320], threshold = '0.21mJy', niter = 10000)
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.sz320.thresh33uJy', imsize = [320], threshold = '0.33mJy', niter = 10000)
+
+Clean RMS = 7.1uJy
+
+With Scaling:
+Int Flux = 29.93uJy
+Peak Flux = 30.81uJy/beam
+
+
+\\8/14\\
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.sz640.90uJy', imsize = [640], threshold = '90uJy', niter = 10000)
+
+
+--8/22--
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imsize = [1280], pblimit=-0.01, imagename = 'SDSSJ1241+6246_split.ms.auto_thresh.thresh60uJy.1280', threshold = '60uJy', niter = 15000, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+
+
+
+---Spectral Index for 1241+6246---
+
+delmod('SDSSJ1241+6246_split.ms')
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imsize = [1280], imagename = 'SDSSJ1241+6246_split.ms.95uJy.full.mtmfs', pblimit = -0.01, threshold = '95uJy', niter = 100000, deconvolver = "mtmfs")
+
+#Return after response from Amy -- remember to delmod
+
+
+
+--Self-cal--
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.shallowbright', imsize = [1280], niter = 1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="SDSSJ1241+6246_split.ms", caltable="1241+6246_phasecal_1min_r1", solint="30s", refant="ea16", calmode="p", minsnr=3.0)
+
+plotcal(caltable='1241+6246_phasecal_1min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-50,50])
+
+applycal(vis="SDSSJ1241+6246_split.ms", gaintable=["1241+6246_phasecal_1min_r1"])
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.25uJy.selfcal1', imsize = [1280], threshold = '25uJy', niter = 100000)
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.shallowbright2', imsize = [1280], niter = 1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="SDSSJ1241+6246_split.ms", caltable="1241+6246_phasecal_30s_r2", gaintable=["1241+6246_phasecal_1min_r1"], solint="30s", refant="ea16", calmode="p", minsnr=3.0)
+
+
+plotcal(caltable='1241+6246_phasecal_30s_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-50,50])
+
+applycal(vis="SDSSJ1241+6246_split.ms", gaintable=["1241+6246_phasecal_1min_r1", "1241+6246_phasecal_30s_r2"])
+
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.25uJy.selfcal2', imsize = [1280], threshold = '25uJy', niter = 100000)
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.95uJy.selfcal2.MTMFS', imsize = [1280], threshold = '95uJy', niter = 100000, deconvolver="mtmfs", nterms=2)
+
+tclean(vis = 'SDSSJ1241+6246_split.ms', imagename = 'SDSSJ1241+6246_split.ms.95uJy.selfcal2.MTMFS.2560', imsize = [2560], pblimit=-.01, threshold = '95uJy', niter = 100000, deconvolver="mtmfs", nterms=2)
+
+
+
+
+imfit(imagename="J1241+6246.FITS", box="626.623, 626.509, 651.694, 654.657", excludepix=[-1e10,0], logfile="Imfits/J1241+6246_imfit.log")

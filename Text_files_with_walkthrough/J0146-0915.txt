@@ -1,0 +1,65 @@
+flagdata(vis = '18B-229.sb35831880.eb35863825.58439.272124814815.ms', spw = '>28')
+
+statwt(vis = '18B-229.sb35831880.eb35863825.58439.272124814815.ms', spw = '>28')
+**was already done -- but do this for statwt now
+
+split(vis = '18B-229.sb35831880.eb35863825.58439.272124814815.ms', outputvis = 'SDSSJ0146-0915_split.ms', field = '2')
+
+---
+
+Dirty:
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.dirtysz640', imsize = [640])
+
+Dirty rms ~ 5.5uJy
+
+
+Cleaned:
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.sz640.thresh', imsize = [640], niter = 10000, threshold = '0.105mJy')
+
+
+
+rms = 3.4uJy -- Npts = 7917 
+Dirty Rms = 4.9
+
+
+--8/13--
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.sz640.45uJy', imsize = [640], niter = 10000, threshold = '45uJy')
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.sz640.36uJy', imsize = [640], niter = 10000, threshold = '36uJy')
+
+
+
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.dirty.1280', imsize = [1280])
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.shallowbright.1512', imsize = [1512], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+plotms(vis="SDSSJ0146-0915_split.ms", xaxis="uvdist", yaxis="amp", xlabel="UVdist (kilolambda)", ylabel="Amp", plotfile="AmpvsUVdist_nocals.pdf")
+
+
+gaincal(vis="SDSSJ0146-0915_split.ms", caltable="0146-0915_phasecal_10min_r1", solint="10min", refant="ea02", minsnr=3.0, calmode="p")
+
+
+plotcal(caltable="0146-0915_phasecal_10min_r1", xaxis="time", yaxis="phase", plotrange=[0,0,150,150], subplot=331, iteration="antenna")
+
+applycal(vis="SDSSJ0146-0915_split.ms", gaintable=["0146-0915_phasecal_10min_r1"])
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.selfcal.30uJy', imsize = [1512], pblimit=-.01, niter = 100000, threshold = '30uJy')
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.shallowbright2.2560', imsize = [2560], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="SDSSJ0146-0915_split.ms", caltable="0146-0915_phasecal_1min_r2", gaintable=["0146-0915_phasecal_10min_r1"], solint="1min", refant="ea02", minsnr=3.0, calmode="p")
+
+plotcal(caltable="0146-0915_phasecal_1min_r2", xaxis="time", yaxis="phase", plotrange=[0,0,-150,150], subplot=331, iteration="antenna", spw="16,19,26,27,28")
+
+applycal(vis="SDSSJ0146-0915_split.ms", gaintable=["0146-0915_phasecal_10min_r1", "0146-0915_phasecal_1min_r2"])
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename = 'SDSSJ0146-0915_split.ms.selfcal2.30uJy', imsize = [2560], pblimit=-.01, niter = 100000, threshold = '30uJy')
+
+impbcor(imagename="SDSSJ0146-0915_split.ms.selfcal2.30uJy.image", pbimage="SDSSJ0146-0915_split.ms.selfcal2.30uJy.pb", outfile="SDSSJ0146-0915_split.ms.selfcal2.30uJy.PBcorrected")
+
+
+tclean(vis = 'SDSSJ0146-0915_split.ms', imagename ='SDSSJ0146-0915_split.ms.selfcal2.65uJy.MS-MTMFS', imsize= [2560], pblimit=-.01, niter = 100000, threshold = '65uJy', deconvolver="mtmfs", nterms=2, scales=[0,6,10,20])
+
+

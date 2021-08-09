@@ -1,0 +1,72 @@
+wFinal Delay:
+ea23(all)
+
+
+
+split(vis = '18B-229.sb35915313.eb35936559.58447.69529929398.ms', outputvis = 'SDSSJ1445+5245_split.ms', field = '2')
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imagename = 'SDSSJ1445+5245_split.ms.dirty', imsize = [1280])
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imagename = 'SDSSJ1445+5245_split.ms.dirtysz640', imsize = [640])
+
+
+Dirty image has rms of ~2uJy
+
+Try flagging ea23:
+flagdata(vis = 'SDSSJ1445+5245_split.ms', antenna = '22')
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imagename = 'SDSSJ1445+5245_split.ms.dirtysz640.wflaggedantenna', imsize = [640])
+
+Rms low everywhere -- try threshold = '0.10mJy'
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imagename = 'SDSSJ1445+5245_split.ms.sz640.wflaggedantenna.thresh10uJy', imsize = [640], threshold = '0.10mJy', niter = 10000)
+
+*reached threshold
+
+
+Rms now 1.3uJy ... ?
+
+
+Peak Flux = 5.04uJy/beam
+
+Int. Flux = 3.96uJy
+
+--8/8--
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imagename = 'SDSSJ1445+5245_split.ms.sz640.wflaggedantenna.threshp036mJy', imsize = [640], threshold = '0.036mJy', niter = 10000)
+
+rms=12u
+pf=same
+if=
+
+--8/21--
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imsize = [1280], pblimit=-0.01, imagename = 'SDSSJ0823+2139_split.ms.auto_thresh.thresh40uJy.1280p', threshold = '30uJy', niter = 15000, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+
+
+
+
+
+
+--Spectral Index--
+
+delmod('SDSSJ1445+5245_split.ms')
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imsize = [1280], pblimit=-0.01, imagename = 'SDSSJ0823+2139_split.ms.60uJy.MTMFS', threshold = '65uJy', niter = 100000, deconvolver="mtmfs")
+
+
+
+
+--Return 6/25--
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imagename = 'SDSSJ1445+5245_split.ms.shallowbright', imsize = [1512], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="SDSSJ1445+5245_split.ms", caltable="1445+5245_phasecal_1min_r1", minsnr=3.0, calmode="p", solint="1min", refant="ea13")
+
+Delmod
+
+tclean(vis = 'SDSSJ1445+5245_split.ms', imsize = [1280], pblimit=-0.01, imagename = 'SDSSJ0823+2139_split.ms.auto_thresh.thresh18uJy.1280p', threshold = '18uJy', niter = 100000, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+
+
+imfit(imagename="J1445+5245.FITS", box="632.756, 632.407, 646.36, 646.709", excludepix=[-1e10,0], logfile="Imfits/J1445+5245_imfit.log")
+

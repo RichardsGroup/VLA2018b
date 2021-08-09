@@ -1,0 +1,77 @@
+#split
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.dirty5120", pblimit=-0.01, imsize=[5120])
+
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.150uJy", pblimit=-0.01, imsize=[5120], niter=100000, threshold="150uJy")
+
+
+delmod("1135+0014_compressionfix.ms")
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.shallowbright", imsize=[5120], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="1135+0014_compressionfix.ms", caltable="1135+0014_phasecal_inf_r1", solint="inf", calmode="p", refant="ea13", minsnr=3.0)
+
+plotcal(caltable="1135+0014_phasecal_inf_r1", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+
+applycal(vis="1135+0014_compressionfix.ms", gaintable=["1135+0014_phasecal_inf_r1"])
+
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.selfcal.150uJy", pblimit=-0.01, imsize=[5120], niter=100000, threshold="150uJy")
+
+
+
+delmod("1135+0014_compressionfix.ms")
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.shallowbright2", imsize=[5120], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="1135+0014_compressionfix.ms", caltable="1135+0014_phasecal_5min_r1", gaintable=["1135+0014_phasecal_inf_r1"], solint="5min", calmode="p", refant="ea13", minsnr=3.0)
+
+plotcal(caltable="1135+0014_phasecal_5min_r1", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+
+applycal(vis="1135+0014_compressionfix.ms", gaintable=["1135+0014_phasecal_inf_r1", "1135+0014_phasecal_5min_r1"])
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.selfcal2.150uJy", pblimit=-0.01, imsize=[5120], niter=100000, threshold="150uJy")
+
+
+
+
+delmod("1135+0014_compressionfix.ms")
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.shallowbright3", imsize=[5120], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="1135+0014_compressionfix.ms", caltable="1135+0014_phasecal_1min_r3", gaintable=["1135+0014_phasecal_inf_r1", "1135+0014_phasecal_5min_r2"], solint="1min", calmode="p", refant="ea13", minsnr=3.0)
+
+plotcal(caltable="1135+0014_phasecal_1min_r3", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+
+applycal(vis="1135+0014_compressionfix.ms", gaintable=["1135+0014_phasecal_inf_r1", "1135+0014_phasecal_5min_r2", "1135+0014_phasecal_1min_r3"])
+
+
+
+
+gaincal(vis="1135+0014_compressionfix.ms", caltable="1135+0014_phasecal_30s_r4", gaintable=["1135+0014_phasecal_inf_r1", "1135+0014_phasecal_5min_r2", "1135+0014_phasecal_1min_r3"], solint="30s", calmode="p", refant="ea13", minsnr=3.0)
+
+plotcal(caltable="1135+0014_phasecal_30s_r4", plotrange=[0,0,-150,150], xaxis="time", yaxis="phase", subplot=331, iteration="antenna")
+
+
+applycal(vis="1135+0014_compressionfix.ms", gaintable=["1135+0014_phasecal_inf_r1", "1135+0014_phasecal_5min_r2", "1135+0014_phasecal_1min_r3", "1135+0014_phasecal_30s_r4"])
+
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.selfcal4.150uJy", pblimit=-0.01, imsize=[5120], niter=100000, threshold="150uJy")
+
+
+
+delmod("1135+0014_compressionfix.ms")
+
+tclean(vis="1135+0014_compressionfix.ms", imagename="1135+0014_compressionfix.ms.shallowbright5ap", imsize=[5120], pblimit=-.01, niter=1, interactive=True, savemodel="modelcolumn")
+
+gaincal(vis="1135+0014_compressionfix.ms", caltable="1135+0014_phasecal_4min_r5ap", gaintable=["1135+0014_phasecal_inf_r1", "1135+0014_phasecal_5min_r2", "1135+0014_phasecal_1min_r3", "1135+0014_phasecal_30s_r4"], solint="4min", calmode="ap", refant="ea13", minsnr=3.0)
+
+plotcal(caltable="1135+0014_phasecal_4min_r5ap", plotrange=[0,0,0,2], xaxis="time", yaxis="amp", subplot=331, iteration="antenna")
+
+#Change if 4min no good
+applycal(vis="1135+0014_compressionfix.ms", gaintable=["1135+0014_phasecal_inf_r1", "1135+0014_phasecal_5min_r2", "1135+0014_phasecal_1min_r3", "1135+0014_phasecal_30s_r4", "1135+0014_phasecal_4min_r5ap"])
+

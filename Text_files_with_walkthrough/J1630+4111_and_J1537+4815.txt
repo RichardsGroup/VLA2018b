@@ -1,0 +1,176 @@
+index.html still not working
+
+
+gainphase vs. time:
+
+-divergence at ~17:42:00 for ea09
+
+Gain amp vs time:
+
+-similar problem at ea09
+-ea12 problem
+
+Gain amp vs freq:
+
+-same problem for ea12
+-scatter in gain amp vs freq for ea12 : (2-3GHz)
+
+
+flagdata(vis = '18B-229.sb35951299.eb35964034.58452.728821157405.ms', antenna = '7', timerange = '>17:42:00')
+
+flagdata(vis = '18B-229.sb35951299.eb35964034.58452.728821157405.ms', antenna = '10', spw = '16~23')
+
+statwt(vis = '18B-229.sb35951299.eb35964034.58452.728821157405.ms')
+
+
+---1630+4111---
+
+16 30 21.65, +41 11 47
+
+split(vis = '18B-229.sb35951299.eb35964034.58452.728821157405.ms', outputvis = 'SDSSJ1630+4111_split.ms', field = '2')
+
+tclean(vis = 'SDSSJ1630+4111_split.ms', imagename = 'SDSSJ1630+4111_split.ms.sz1280.dirty', imsize = [1280])
+
+
+tclean(vis = 'SDSSJ1630+4111_split.ms', imagename = 'SDSSJ1630+4111_split.ms.sz640.dirty', imsize = [640])
+
+-enlarge image a little more to include source at bottom of image
+
+tclean(vis = 'SDSSJ1630+4111_split.ms', imagename = 'SDSSJ1630+4111_split.ms.sz720.dirty', imsize = [720])
+
+-Dirty RMS = 3.2uJy
+-image close to center, near target (check Skyview)
+
+
+Clean:
+tclean(vis = 'SDSSJ1630+4111_split.ms', imagename = 'SDSSJ1630+4111_split.ms.sz720.thresh21uJy', imsize = [720], threshold = '0.21mJy', niter = 10000)
+
+-completed in 97 iterations
+-RMS = 2.9-3uJy
+
+
+--8/8--
+
+tclean(vis = 'SDSSJ1630+4111_split.ms', imagename = 'SDSSJ1630+4111_split.ms.sz720.threshp03mJy', imsize = [720], threshold = '0.03mJy', niter = 30000)
+
+rms=18uJy
+pf=43uJy/b
+
+if= Check SkyView for possible lobe structure
+
+
+-Spectral Index-
+
+delmod('SDSSJ1630+4111_split.ms')
+
+tclean(vis = 'SDSSJ1630+4111_split.ms', imagename = 'SDSSJ1630+4111_split.ms.sz720.50Jy.MTMFS', imsize = [720], threshold = '50uJy', niter = 100000, deconvolver="mtmfs")
+
+tclean(vis = 'SDSSJ1630+4111_split.ms', imagename = 'SDSSJ1630+4111_split.ms.1280.20uJy', imsize = [1280], threshold = '20uJy', niter = 100000)
+
+
+
+-SkyView-
+
+Radio position of nearby lobe: 16:30:19.986, +41.11.32.700
+Optical position from SkyView: 16 30 19.97 +41 11 32.5
+
+Radio of up-left lobe: 16:30:25.758, +41.12.42.995
+Optical position: 16 30 25.73 +41 12 43.4 
+
+
+
+
+imfit(imagename="J1630+4111.FITS", box="631.244, 633.105, 647.872, 649.151", excludepix=[-1e10,0], logfile="Imfits/J1630+4111_imfit.log")
+
+
+
+
+
+
+
+
+
+
+
+---1537+4815---
+
+15 37 45.03 +48 15 02.9
+
+split(vis = '18B-229.sb35951299.eb35964034.58452.728821157405.ms', outputvis = 'SDSSJ1537+4815_split.ms', field = '3')
+
+tclean(vis = 'SDSSJ1537+4815_split.ms', imagename = 'SDSSJ1537+4815_split.ms.sz1280.dirty', imsize = [1280])
+
+tclean(vis = 'SDSSJ1537+4815_split.ms', imagename = 'SDSSJ1537+4815_split.ms.sz640.dirty', imsize = [640])
+
+tclean(vis = 'SDSSJ1537+4815_split.ms', imagename = 'SDSSJ1537+4815_split.ms.sz512.dirty', imsize = [512])
+
+Dirty RMS = 15uJy
+
+
+Clean:
+tclean(vis = 'SDSSJ1537+4815_split.ms', imagename = 'SDSSJ1537+4815_split.ms.sz512.thresh21uJy', imsize = [512], threshold = '0.21mJy', niter = 10000)
+
+
+--8/8--
+
+tclean(vis = 'SDSSJ1537+4815_split.ms', imagename = 'SDSSJ1537+4815_split.ms.sz512.threshp06mJy', imsize = [512], threshold = '0.06mJy', niter = 10000)
+
+
+Gives rms = 40uJy
+
+
+--8/21--
+
+tclean(vis = 'SDSSJ1537+4815_split.ms', imsize = [1512], pblimit=-0.01, imagename = 'SDSSJ1537+4815_split.ms.auto_thresh.thresh15uJy.1512p', threshold = '15uJy', niter = 15000, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+
+
+
+
+
+--With Self Cal from Amy--
+
+split(vis = '18B-229.sb35951299.eb35964034.58452.728821157405.ms',  outputvis = '1_J1537+4815_selfcal.ms', field = '3')
+
+clean(vis = '1_J1537+4815_selfcal.ms', imagename = '1_J1537+4815_selfcal.ms.shallowbright', imsize = [1512], interactive = True)
+
+gaincal(vis = '1_J1537+4815_selfcal.ms', caltable = '1537+4815_solint_1min_r1', calmode = 'p', refant = 'ea13', solint = '1min', minsnr = 3.0)
+
+plotcal(caltable='1537+4815_solint_1min_r1',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='1_J1537+4815_selfcal.ms', gaintable=['1537+4815_solint_1min_r1'], calwt=False)
+
+delmod(vis = '1_J1537+4815_selfcal.ms')
+
+tclean(vis = '1_J1537+4815_selfcal.ms', imsize = [1280], pblimit=-0.01, imagename = '1_J1537+4815_selfcal.ms.60uJy', threshold = '60uJy', niter = 100000)
+
+
+
+
+-Self Cal 2-
+
+split(vis = '1_J1537+4815_selfcal.ms',  outputvis = '2_J1537+4815_selfcal.ms', datacolumn = 'corrected')
+
+clean(vis = '2_J1537+4815_selfcal.ms', imagename = '2_J1537+4815_selfcal.ms.shallowbright', imsize = [1512], interactive = True)
+
+gaincal(vis = '2_J1537+4815_selfcal.ms', caltable = '1537+4815_solint_20sec_amp_r2', calmode = 'ap', refant = 'ea13', solint = '20s', minsnr = 3.0)
+
+plotcal(caltable='1537+4815_solint_20sec_amp_r2',xaxis='time',yaxis='phase', iteration='antenna',subplot=331,plotrange=[0,0,-150,150])
+
+applycal(vis='2_J1537+4815_selfcal.ms', gaintable=['1537+4815_solint_20sec_amp_r2'], calwt=False)
+
+delmod(vis = '2_J1537+4815_selfcal.ms')
+
+tclean(vis = '2_J1537+4815_selfcal.ms', imsize = [1512], pblimit=-0.01, imagename = '2_J1537+4815_selfcal.ms.15uJy', threshold = '15uJy', niter = 100000)
+
+
+
+
+
+---Return from co op---
+
+delmod("SDSSJ1537+4815_split.ms")
+
+tclean(vis="SDSSJ1537+4815_split.ms", imagename="SDSSJ1537+4815_split.ms.22uJy.MTMFS", imsize=[1512], pblimit=-.01, niter=100000, threshold="22uJy", deconvolver="mtmfs", nterms=2, scales=[0,6,15,25], smallscalebias=0.6) 
+
+
+

@@ -1,0 +1,65 @@
+Images with a * are possible marginal detections
+
+Highest EQW (1 non-detection):
+1058+0152: This image has a ~120mJy source just outside the primary beam causing very strong errors.  If we wanted to reach sigma~10uJy, that'd be reaching a dynamic range ~120e-3/10e-6 ~ 12000.  Once we get past ~1000, imaging gets very complicated; and coupled with this being pretty much right in the middle of the Clarke belt range, we likely aren't going to get any useful radio data from this.  I spoke with Amy about this and confirmed that we should probably just remove it from our sample.  If we wanted to keep it, the 3-sigma upper limit would be 3*220uJy=660uJy
+
+
+High EQW, low blueshift (4 non-detections):
+*1107+2708: RMS~9.3uJy; Looks like we could probably consider this a marginal S/N~4 detection
+
+1509+0756: RMS~20.3uJy; A very tough image to deal with.  Strong jetted FIRST source along edge of PB causing problems and making it hard to self-calibrate with
+
+2346-0029: RMS~7.5uJy; Firm non-detection.  Even though in Clarke belt, could be good follow-up candidate
+
+*1537+4815: RMS~7.5uJy; Potentially interesting object.  Definitely no detection at the optical location, but high S/N radio source offset ~1arcsec that is unmatched in SDSS.  See slideshow "NonDetections_sameDynamicRange" slideshow in Drive folder for optical cutouts
+
+High blueshift, low EQW (21 non-detections):
+*0905+1545: RMS~20uJy; Tough to get a great image for this one.  Looks like it could possibly be a detection, but too noisy to say for sure
+
+1135-0226: RMS~12.8uJy; Pretty good image, firm non-detection
+
+0157-0938:RMS~14.9; Struggled with compression and other bright sources in this image, but is reasonably well-cleaned now.  No reason to think there's any detection
+
+0829+4016: RMS~9.9uJy; Image cleaned well, no detection
+
+0146-0915: RMS~10uJy; No problems, no detection
+
+1406+2923: RMS~12.8uJy; Bright source in top of image, non-detection
+
+2131+1047: RMS~14.7uJy; Not the best image, some strong RFI, no sign of detection
+
+0956+5347: RMS~12uJy; Image cleaned pretty well, non-detection
+
+1338+0846: RMS~15.9uJy; Two strong complex sources in top right degrading sensitivity to some degree, image still seems about as good as it will get, no detection
+
+1546+1914: RMS~9.6uJy; strong source in lower-right of image causing some problems, no clear detection
+
+
+1048+0032: RMS~12.1uJy; image in strong compression zone, no detection
+
+1305+4624: RMS~8.5uJy; good self-calibration, firm non-detection
+
+1135+0014: RMS~9.0uJy; good image in Clarke belt range, very wide-field image needed due to bright source in lower part of image
+ 
+1007+1628: RMS~13.5uJy; Three bright sources that should be properly dealt with from multi-term MFS, but aren't.  Still not terrible sensitivity, but also near Clarke belt so we should avoid this if possible in re-observing
+
+*1130+1903: RMS~8.5uJy; image cleaned pretty deeply, could be a possible new detection
+
+*0816+4924: RMS~8.7; Strong jetted source ~4arcsec from our target, good image obtained nevertheless, looks like a marginal detection
+
+2158+0027: RMS~14uJy; Target right in Clarke belt range, looks like firm non-detection
+ 
+1208+6533: RMS~11.5uJy; Image cleaned fairly deep, notable noise peak at location of our target but I don't think that's a real source based on the shape/low S/N
+
+1600+3027: RMS~8.7uJy; Image cleaned deeply, slightly higher S/N pixels a target location but they don't seem to be forming a real source
+
+0824+2606: RMS~8.6uJy; well-cleaned image, firm non-detection
+
+1322+3248: RMS~16.1uJy; strong source in upper-right of image - self-calibrating with it doesn't help a whole lot
+
+
+
+Highest blueshift (2 non-detections):
+*0823+2139: RMS~10.5uJy; Possible marginal detection
+
+1720+2847: RMS~6.5uJy; This one reached lowest noise levels throughout our sample, firm non-detection
